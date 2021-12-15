@@ -1,5 +1,21 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import * as ROUTES from "./constants/routes";
+import login from "./pages/login.page";
+const Login = lazy(() => import("./pages/login.page"));
+const NoPageFound = lazy(() => import("./pages/no-page-found.page"));
+
 function App() {
-  return <p>Hello</p>;
+  return (
+    <BrowserRouter>
+      <Suspense fallback={<p>Loading..</p>}>
+        <Routes>
+          <Route path={ROUTES.LOGIN_ROUTE} element={<Login />} />
+          <Route path={ROUTES.NO_PAGE_FOUND_ROUTE} element={<NoPageFound />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  );
 }
 
 export default App;
