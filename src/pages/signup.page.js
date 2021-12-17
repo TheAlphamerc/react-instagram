@@ -1,58 +1,59 @@
-import { useNavigate } from "react-router-dom";
+import { Routes, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import FirebaseContext from "../context/firebase";
 import cx from "classnames";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import * as Route from "../constants/routes";
 import { Link } from "react-router-dom";
+import { doesUsernameExist, createUser,updateUser } from "../services/firebase";
+import { Profile, ProfileConverter } from "../models/index.model";
+import {
+  getAuth,
+  doc,
+  db,
+  addDoc,
+  collection,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  setDoc,
+} from "../lib/firebase";
+// import { setDoc } from "firebase/firestore/lite";
 
-function Login() {
+function Signup() {
   const history = useNavigate();
   const firebase = useContext(FirebaseContext);
 
   const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
+  const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const isValid = password === "" || email === "";
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     try {
+      const usernameExists = await doesUsernameExist(username);
+      if (usernameExists) {
+        setError("Username already exists");
+        return;
+      } else {
+        setError("");
+      }
+
       const auth = getAuth();
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          history(Route.DASHBOARD);
-        })
-        .catch((error) => {
-          console.log(error.code);
-          switch (error.code) {
-            case "auth/invalid-email":
-              setError("Email or password is invalid");
-              break;
-            case "user-not-found":
-              setError("User not exists"); 
-              break;
-            case "auth/wrong-password":
-              setError("Wrong password");
-              break;
-            
-            default: 
-            console.log(error.code);
-            console.log(error.message);
-            setError("Some thing went wrong. Please try again later");
-              break;
-          }
-        });
+      const profile = await createUser(auth,username,fullname, email, password);
+      console.log(profile);
+      await updateUser(profile);
+      history(Route.DASHBOARD);
     } catch (e) {
-      setError(e.message);
+      console.log(e);
+      setError(e);
     }
   };
 
   useEffect(() => {
-    document.title = "Login - instagram";
+    document.title = "Signup - instagram";
   }, []);
 
   return (
@@ -74,7 +75,25 @@ function Login() {
             <p className="text-red-500 mb-4 text-sm  w-full">{error}</p>
           )}
 
-          <form onSubmit={handleLogin} method="post">
+          <form onSubmit={handleSignup} method="post">
+            <input
+              aria-label="Enter your username"
+              className="text-sm text-gray-base w-full
+             py-5 px-4 h-2 border border-grey-primary rounded mb-2"
+              type="text"
+              placeholder="Enter username"
+              onChange={(e) => setUserName(e.target.value)}
+              value={username || ""}
+            />
+            <input
+              aria-label="Enter your full name"
+              className="text-sm text-gray-base w-full
+            py-5 px-4 h-2 border border-grey-primary rounded mb-2"
+              type="text"
+              placeholder="Enter fullname"
+              onChange={(e) => setFullName(e.target.value)}
+              value={fullname || ""}
+            />
             <input
               aria-label="Enter your email address"
               className="text-sm text-gray-base w-full
@@ -82,6 +101,7 @@ function Login() {
               type="email"
               placeholder="Email address"
               onChange={(e) => setEmail(e.target.value)}
+              value={email || ""}
             />
             <input
               aria-label="Enter your email password"
@@ -90,24 +110,24 @@ function Login() {
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
             <button
-              disable={isValid}
+              disabled={isValid}
               type="submit"
               className={cx(
-                "bg-blue-500 text-white w-full py-3 rounded font-bold px-4 rounded mb-2",
-                
+                "bg-blue-500 text-white w-full py-3 rounded font-bold px-4 rounded mb-2"
               )}
             >
-              Log in
+              Sign up
             </button>
           </form>
         </div>
         <div className="flex justfy-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
           <p className="text-sm">
-            Don't have an account?{" "}
-            <Link to={Route.SIGNUP_ROUTE} className="font-bold text-blue-medium">
-              Sign up
+            Have an account?{" "}
+            <Link to={Route.LOGIN_ROUTE} className="font-bold text-blue-medium">
+              Sign in
             </Link>
           </p>
         </div>
@@ -116,7 +136,7 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
 
 //text-red-primary
 //text-gray-base

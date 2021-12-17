@@ -1,6 +1,22 @@
-import {initializeApp} from "firebase/app";
-import { getFirestore, collection } from 'firebase/firestore/lite';
-import {seedDatabase} from '../seed.js';
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  doc,
+  setDoc,
+  where,
+} from "firebase/firestore";
+import {
+  getAuth,
+  updateProfile,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+
+import { seedDatabase } from "../seed.js";
 
 const config = {
   apiKey: "AIzaSyDAv_F_c6Wg-LsVhbL38Z9RHMyW3A5bTwA",
@@ -14,9 +30,13 @@ const config = {
 
 const firebase = initializeApp(config);
 
-const  FieldValue  = getFirestore(firebase);
-const  firestore  = getFirestore(firebase);
+const db = getFirestore(firebase);
 
-// seedDatabase(firestore);
-
-export { firebase, FieldValue };
+// seedDatabase(db);
+export {
+  updateProfile,
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+};
+export { firebase, db, collection,doc, where, query, getDocs ,addDoc,setDoc};
