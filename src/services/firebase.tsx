@@ -4,6 +4,7 @@ import {
   query,
   collection,
   getDocs,
+  getDoc,
   createUserWithEmailAndPassword,
   getAuth,
   doc,
@@ -13,7 +14,7 @@ import {
 
 import { Profile, ProfileConverter } from "../models/profile.model";
 
-async function doesUsernameExist(username:string) {
+async function doesUsernameExist(username: string) {
   try {
     const querySnapshot = query(
       collection(db, "users"),
@@ -29,11 +30,12 @@ async function doesUsernameExist(username:string) {
 
 
 
-async function updateUser(profile: Profile) {
+async function updateUser(auth: any, profile: Profile) {
   try {
     const ref = doc(collection(db, "users"), profile.userId).withConverter(ProfileConverter);
 
     await setDoc(ref, profile);
+    await updateProfile(auth.currentUser, { displayName: profile.fullname });
 
   } catch (e) {
     console.log(e);
@@ -86,4 +88,19 @@ async function createUser(auth: any, username: string, fullname: string, email: 
   }
 }
 
-export { doesUsernameExist, updateUser, createUser };
+async function getUserByUserId(userId: string): Promise<Profile> {
+  try {
+    const ref = doc(collection(db, "users"), userId).withConverter(ProfileConverter);
+    const profileSnap = await getDoc(ref);
+    if (profileSnap.exists()) {
+      return profileSnap.data();
+    } else {
+     throw new Error("User not found");
+    }
+  } catch (e) {
+    console.log(e);
+    throw (e);
+  }
+}
+
+export { doesUsernameExist, updateUser, createUser,getUserByUserId };

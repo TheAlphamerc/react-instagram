@@ -90,9 +90,9 @@ function Login() {
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="off"
             />
             <button
-              disable={isValid}
               type="submit"
               className={cx(
                 "bg-blue-500 text-white w-full py-3 rounded font-bold px-4 rounded mb-2",

@@ -7,8 +7,8 @@ export function seedDatabase(db) {
       username: "karl",
       fullName: "Karl Hadwen",
       emailAddress: "karl@gmail.com",
-      following: ["2"],
-      followers: ["2", "3", "4"],
+      following: [],
+      followers: [],
       dateCreated: Date.now(),
     },
     {

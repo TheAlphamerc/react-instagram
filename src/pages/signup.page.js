@@ -5,9 +5,8 @@ import cx from "classnames";
 import * as Route from "../constants/routes";
 import { Link } from "react-router-dom";
 import { doesUsernameExist, createUser,updateUser } from "../services/firebase";
-import { Profile, ProfileConverter } from "../models/index.model";
+import { Profile, ProfileConverter } from "../models";
 import {
-  getAuth,
   doc,
   db,
   addDoc,
@@ -20,7 +19,7 @@ import {
 
 function Signup() {
   const history = useNavigate();
-  const firebase = useContext(FirebaseContext);
+  const {getAuth} = useContext(FirebaseContext);
 
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
@@ -35,7 +34,7 @@ function Signup() {
     try {
       const usernameExists = await doesUsernameExist(username);
       if (usernameExists) {
-        setError("Username already exists");
+        setError("Username already taken, pleas/e try another one");
         return;
       } else {
         setError("");
@@ -43,8 +42,7 @@ function Signup() {
 
       const auth = getAuth();
       const profile = await createUser(auth,username,fullname, email, password);
-      console.log(profile);
-      await updateUser(profile);
+      await updateUser(auth,profile);
       history(Route.DASHBOARD);
     } catch (e) {
       console.log(e);
@@ -110,10 +108,10 @@ function Signup() {
               type="password"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="off"
               value={password}
             />
             <button
-              disabled={isValid}
               type="submit"
               className={cx(
                 "bg-blue-500 text-white w-full py-3 rounded font-bold px-4 rounded mb-2"

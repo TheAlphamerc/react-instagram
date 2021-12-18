@@ -4,16 +4,19 @@ import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
   query,
   doc,
   setDoc,
   where,
 } from "firebase/firestore";
 import {
+  signOut,
   getAuth,
   updateProfile,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import { seedDatabase } from "../seed.js";
@@ -36,7 +39,9 @@ const db = getFirestore(firebase);
 export {
   updateProfile,
   getAuth,
+  signOut,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
 };
-export { firebase, db, collection,doc, where, query, getDocs ,addDoc,setDoc};
+export { firebase, db, collection, doc, where, query, getDocs,getDoc, addDoc, setDoc };

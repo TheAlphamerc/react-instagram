@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import FirebaseContext from "./context/firebase";
-import {firebase,db} from "./lib/firebase";
+import {firebase,signOut,db,getAuth,onAuthStateChanged} from "./lib/firebase";
 
 ReactDOM.render(
    <React.StrictMode>
-    <FirebaseContext.Provider value={{firebase, db}}>
+    <FirebaseContext.Provider value={{firebase,signOut, db,getAuth,onAuthStateChanged}}>
        <App />  
     </FirebaseContext.Provider>
   </React.StrictMode>,

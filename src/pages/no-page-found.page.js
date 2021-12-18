@@ -1,5 +1,14 @@
+import {useEffect} from "react";
 function NoPageFound() {
-  return <div>No page found</div>;
+
+  useEffect (() => {
+    document.title = "Page not found - instagram";
+  });
+  return <div className="bg-gray-100">
+    <div className="flex h-screen items-center place-content-center  max-w-screen">
+      <p className="text-center text-xl">No page found</p>
+    </div>
+  </div>;
 }
 
 export default NoPageFound;
