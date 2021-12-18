@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/react-instagram/static/js/main.c855db77.chunk.js",
-    "main.js.map": "/react-instagram/static/js/main.c855db77.chunk.js.map",
+    "main.js": "/react-instagram/static/js/main.82d9487d.chunk.js",
+    "main.js.map": "/react-instagram/static/js/main.82d9487d.chunk.js.map",
     "runtime-main.js": "/react-instagram/static/js/runtime-main.6850f803.js",
     "runtime-main.js.map": "/react-instagram/static/js/runtime-main.6850f803.js.map",
     "static/js/2.2f039546.chunk.js": "/react-instagram/static/js/2.2f039546.chunk.js",
@@ -16,6 +16,6 @@
   "entrypoints": [
     "static/js/runtime-main.6850f803.js",
     "static/js/2.2f039546.chunk.js",
-    "static/js/main.c855db77.chunk.js"
+    "static/js/main.82d9487d.chunk.js"
   ]
 }
