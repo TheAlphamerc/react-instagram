@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/react-instagram/static/js/main.c855db77.chunk.js",
+    "main.js.map": "/react-instagram/static/js/main.c855db77.chunk.js.map",
+    "runtime-main.js": "/react-instagram/static/js/runtime-main.6850f803.js",
+    "runtime-main.js.map": "/react-instagram/static/js/runtime-main.6850f803.js.map",
+    "static/js/2.2f039546.chunk.js": "/react-instagram/static/js/2.2f039546.chunk.js",
+    "static/js/2.2f039546.chunk.js.map": "/react-instagram/static/js/2.2f039546.chunk.js.map",
+    "static/js/3.826841d9.chunk.js": "/react-instagram/static/js/3.826841d9.chunk.js",
+    "static/js/3.826841d9.chunk.js.map": "/react-instagram/static/js/3.826841d9.chunk.js.map",
+    "static/js/4.e6f1b8b1.chunk.js": "/react-instagram/static/js/4.e6f1b8b1.chunk.js",
+    "static/js/4.e6f1b8b1.chunk.js.map": "/react-instagram/static/js/4.e6f1b8b1.chunk.js.map",
+    "index.html": "/react-instagram/index.html",
+    "static/js/2.2f039546.chunk.js.LICENSE.txt": "/react-instagram/static/js/2.2f039546.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6850f803.js",
+    "static/js/2.2f039546.chunk.js",
+    "static/js/main.c855db77.chunk.js"
+  ]
+}

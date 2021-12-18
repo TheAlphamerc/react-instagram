@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/no-page-found.page.js"],"names":["NoPageFound"],"mappings":"4IAIeA,UAJf,WACE,OAAO","file":"static/js/3.826841d9.chunk.js","sourcesContent":["function NoPageFound() {\n  return <div>No page found</div>;\n}\n\nexport default NoPageFound;\n"],"sourceRoot":""}
