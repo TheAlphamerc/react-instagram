@@ -1,7 +1,8 @@
 // import { collection,setDoc } from "firebase/firestore/lite";
-import {  Profile, ProfileConverter } from "./models";
+import { Profile, ProfileConverter } from "./models";
+import { PostConverter, PostModel } from "./models/post";
 // NOTE: replace 'bEIPMd9MPpX6nDrN29Qi0vIqYg123' with your Firebase auth user id (can be taken from Firebase)
-export async function seedDatabase(db:any, collection:any,doc:any, setDoc:any) {
+export async function seedDatabase(db: any, collection: any, doc: any, setDoc: any) {
   const users = [
     new Profile(
       "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
@@ -11,7 +12,7 @@ export async function seedDatabase(db:any, collection:any,doc:any, setDoc:any) {
       "https://i.pravatar.cc/300",
       [],
       ["bEIPMd9MPpX6nDrN2cdi0vIqYgabc"],
-       Date.now()
+      Date.now()
     ),
     new Profile(
       "bEIPMd9MPpX6nDrN2cdi0vIqYgabc",
@@ -19,9 +20,9 @@ export async function seedDatabase(db:any, collection:any,doc:any, setDoc:any) {
       "karlsanzio",
       "karl.sanzio@gmail.com",
       "https://i.pravatar.cc/300",
-      ["bEIPMd9MPpX6nDrN29Qi0vIqYg123","bEdvMd9MPpX6nDrN29Qi0vIqYgxyz"],
+      ["bEIPMd9MPpX6nDrN29Qi0vIqYg123", "bEdvMd9MPpX6nDrN29Qi0vIqYgxyz"],
       [],
-       Date.now()
+      Date.now()
     ),
     new Profile(
       "bEdvMd9MPpX6nDrN29Qi0vIqYgxyz",
@@ -31,7 +32,7 @@ export async function seedDatabase(db:any, collection:any,doc:any, setDoc:any) {
       "https://i.pravatar.cc/300",
       [],
       ["bEIPMd9MPpX6nDrN2cdi0vIqYgabc"],
-       Date.now()
+      Date.now()
     ),
     new Profile(
       "bEIPMd9MPpX6nDrN29Qi0vIqYgpqr",
@@ -41,8 +42,8 @@ export async function seedDatabase(db:any, collection:any,doc:any, setDoc:any) {
       "https://i.pravatar.cc/300",
       [],
       [],
-       Date.now()
-      )
+      Date.now()
+    )
   ];
 
   // eslint-disable-next-line prefer-const
@@ -52,27 +53,22 @@ export async function seedDatabase(db:any, collection:any,doc:any, setDoc:any) {
     await setDoc(ref, users[k]);
   }
 
-  // eslint-disable-next-line prefer-const
-  // for (let i = 1; i <= 5; ++i) {
-  //   setDoc(collection(db, "photos"), {
-  //     photoId: i,
-  //     userId: "2",
-  //     imageSrc: `https://i.pravatar.cc/300`,
-  //     caption: "Saint George and the Dragon",
-  //     likes: [],
-  //     comments: [
-  //       {
-  //         displayName: "dali",
-  //         comment: "Love this place, looks like my animal farm!",
-  //       },
-  //       {
-  //         displayName: "orwell",
-  //         comment: "Would you mind if I used this picture?",
-  //       },
-  //     ],
-  //     userLatitude: "40.7128°",
-  //     userLongitude: "74.0060°",
-  //     createdAt: Date.now(),
-  //   });
-  // }
+  const post = new PostModel(
+    "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
+    "Saint George and the Dragon",
+    [],
+    ["https://i.pravatar.cc/300",],
+    Profile.postUser(
+      "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
+      "John Doe",
+      "johndoe",
+      "https://i.pravatar.cc/300"
+    ),
+    Date.now()
+  );
+  for (let i = 1; i <= 5; ++i) {
+    const ref = doc(collection(db, "posts"), i.toString()).withConverter(PostConverter);
+
+    await setDoc(ref, post);
+  }
 }

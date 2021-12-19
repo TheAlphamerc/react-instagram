@@ -5,11 +5,9 @@ import SuggestedProfile from "./suggested-profile";
 import { getSuggestedProfiles } from "../../services/profile";
 
 function Suggestions({ userId }) {
-  console.log("Render Suggestions");
   const [profiles, setProfiles] = useState(null);
 
   useEffect(async () => {
-    console.log("Get Sugggestion");
     if (userId) {
       const list = await getSuggestedProfiles(userId);
       setProfiles(list);

@@ -1,3 +1,3 @@
-import {Profile,ProfileConverter} from "./profile.model";
+import {Profile,ProfileConverter} from "./profile";
 
 export {Profile, ProfileConverter}

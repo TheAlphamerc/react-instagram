@@ -12,7 +12,7 @@ import {
   limit
 } from "../lib/firebase";
 
-import { Profile, ProfileConverter } from "../models/profile.model";
+import { Profile, ProfileConverter } from "../models/index";
 
 async function doesUsernameExist(username: string) {
   try {

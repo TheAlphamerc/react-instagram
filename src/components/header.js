@@ -7,11 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faHome, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
-function Header() {
+function Header({user}) {
   const { signOut, getAuth } = useContext(FirebaseContext);
-  const { user } = useContext(UserContext);
-  console.log("Render Header");
-  console.log(user);
+  // const { user } = useContext(UserContext);
   return (
     <div className="h-16 bg-white border-b border-gray-200 mb-8">
       <div className="container mx-auto  max-w-screen-lg h-full">
@@ -49,10 +47,10 @@ function Header() {
                   <FontAwesomeIcon className="" icon={faSignOutAlt} />
                 </button>
                 {
-                  !user.displayName ? null : <div className="flex items-center cursor-pointer">
-                  <Link to={`/p/${user.displayName}`}>
+                  !user.fullname ? null : <div className="flex items-center cursor-pointer">
+                  <Link to={`/p/${user.fullname}`}>
                     <div className="h-8 w-8 ml-4 font-bold flex items-center   place-content-center ring rounded-full bg-gray-300">
-                      {user.displayName.substring(0, 2).toUpperCase()}
+                      {user.fullname.substring(0, 2).toUpperCase()}
                     </div>
                   </Link>
                 </div>

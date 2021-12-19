@@ -14,6 +14,7 @@ import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { getUserByUserId } from "./auth";
 
 import { Profile, ProfileConverter } from "../models/index";
+import { PostConverter, PostModel } from "../models/post";
 
 
 
@@ -43,15 +44,18 @@ async function updateMyFollowingUser(loggedInUserId: string, secondUserId: strin
 }
 
 
-async function getSuggestedProfiles(userId: string): Promise<Profile[]> {
+async function getTimeLineFeed(following: string[]): Promise<PostModel[]> {
     try {
 
         const querySnapshot = query(
-            collection(db, "users").withConverter(ProfileConverter),
-            where("userId", "!=", userId),
+            collection(db, "posts").withConverter(PostConverter),
+            where("createdBy.userId", "in", following),
             limit(10)
         );
         const docs = await getDocs(querySnapshot)
+        if(docs.docs.length === 0) {
+            return [];
+        }
         const list = docs.docs.map((doc) => doc.data())
         return list;
 
@@ -61,4 +65,4 @@ async function getSuggestedProfiles(userId: string): Promise<Profile[]> {
     }
 }
 
-export { updateMyFollowingUser, getSuggestedProfiles };
+export { updateMyFollowingUser, getTimeLineFeed };

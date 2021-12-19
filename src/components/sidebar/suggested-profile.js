@@ -12,9 +12,9 @@ function SuggestedProfile({ user, loggedInUserId }) {
 
     await updateMyFollowingUser(loggedInUserId, user.userId, followed);
   }
-    if(followed){
-        return null;
-    }
+    // if(followed){
+    //     return null;
+    // }
 
   return (
     <div className="flex flex-row items-center align-items justify-between">

@@ -11,9 +11,8 @@ import Suggestions from "./suggestions";
 // import { faHome, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 
-function Sidebar() {
- const user = useUser();
- console.log("Render Sidebar");
+function Sidebar({user}) {
+ 
   return (
     <div className="p-4">
       <User user={user}/>

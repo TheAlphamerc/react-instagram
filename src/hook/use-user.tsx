@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/user";
 import { getUserByUserId } from "../services/auth";
-import { Profile } from "../models/profile.model";
+import { Profile } from "../models/index";
 
 function UseUser(): Profile {
   const [activeUser, setActiveUser] = useState<any>({});
