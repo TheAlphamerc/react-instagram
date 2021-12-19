@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
-import FirebaseContext from "../context/firebase";
+import {  useState, useEffect } from "react";
 import cx from "classnames";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import * as Route from "../constants/routes";
@@ -8,13 +7,11 @@ import { Link } from "react-router-dom";
 
 function Login() {
   const history = useNavigate();
-  const firebase = useContext(FirebaseContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const isValid = password === "" || email === "";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,7 +20,6 @@ function Login() {
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
           history(Route.DASHBOARD);
         })
         .catch((error) => {
@@ -32,7 +28,7 @@ function Login() {
             case "auth/invalid-email":
               setError("Email or password is invalid");
               break;
-            case "user-not-found":
+            case "auth/user-not-found":
               setError("User not exists"); 
               break;
             case "auth/wrong-password":
@@ -117,8 +113,3 @@ function Login() {
 }
 
 export default Login;
-
-//text-red-primary
-//text-gray-base
-// border-grey-primary
-// bg-blue-medium

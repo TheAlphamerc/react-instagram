@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import FirebaseContext from "../context/firebase";
 import UserContext from "../context/user";
 import * as ROUTES from "../constants/routes";
@@ -10,6 +10,8 @@ import { faHome, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 function Header() {
   const { signOut, getAuth } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
+  console.log("Render Header");
+  console.log(user);
   return (
     <div className="h-16 bg-white border-b border-gray-200 mb-8">
       <div className="container mx-auto  max-w-screen-lg h-full">
@@ -46,13 +48,16 @@ function Header() {
                 >
                   <FontAwesomeIcon className="" icon={faSignOutAlt} />
                 </button>
-                <div className="flex items-center cursor-pointer">
+                {
+                  !user.displayName ? null : <div className="flex items-center cursor-pointer">
                   <Link to={`/p/${user.displayName}`}>
                     <div className="h-8 w-8 ml-4 font-bold flex items-center   place-content-center ring rounded-full bg-gray-300">
                       {user.displayName.substring(0, 2).toUpperCase()}
                     </div>
                   </Link>
                 </div>
+                }
+                
               </>
             ) : (
               <>

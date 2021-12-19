@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/user";
-import { getUserByUserId } from "../services/firebase";
+import { getUserByUserId } from "../services/auth";
 import { Profile } from "../models/profile.model";
 
 function UseUser(): Profile {

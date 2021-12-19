@@ -6,10 +6,10 @@ import {
   getDocs,
   getDoc,
   createUserWithEmailAndPassword,
-  getAuth,
   doc,
   setDoc,
   updateProfile,
+  limit
 } from "../lib/firebase";
 
 import { Profile, ProfileConverter } from "../models/profile.model";
@@ -24,11 +24,9 @@ async function doesUsernameExist(username: string) {
     return docs.docs.length > 0;
   } catch (e) {
     console.log(e);
-    throw "Somethng went wrong";
+    throw Error("Somethng went wrong");
   }
 }
-
-
 
 async function updateUser(auth: any, profile: Profile) {
   try {
@@ -50,7 +48,6 @@ async function createUser(auth: any, username: string, fullname: string, email: 
 
       .catch((error) => {
         console.log(error);
-        var error;
         switch (error.code) {
           case "auth/invalid-email":
             error = ("Email or password is invalid");
@@ -71,12 +68,13 @@ async function createUser(auth: any, username: string, fullname: string, email: 
         throw error;
       });
     // authentication
-    // -> emailAddress, password & username (displyname)
+    // -> email, password & username (displyname)
     const profile = new Profile(
       userCredential.user.uid,
       fullname,
       username.toLowerCase(),
       email,
+      null,
       [],
       [],
       Date.now()
@@ -95,7 +93,7 @@ async function getUserByUserId(userId: string): Promise<Profile> {
     if (profileSnap.exists()) {
       return profileSnap.data();
     } else {
-     throw new Error("User not found");
+      throw new Error("User not found");
     }
   } catch (e) {
     console.log(e);
@@ -103,4 +101,4 @@ async function getUserByUserId(userId: string): Promise<Profile> {
   }
 }
 
-export { doesUsernameExist, updateUser, createUser,getUserByUserId };
+export { doesUsernameExist, updateUser, createUser, getUserByUserId };

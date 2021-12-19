@@ -1,21 +1,10 @@
-import { Routes, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import FirebaseContext from "../context/firebase";
 import cx from "classnames";
 import * as Route from "../constants/routes";
 import { Link } from "react-router-dom";
-import { doesUsernameExist, createUser,updateUser } from "../services/firebase";
-import { Profile, ProfileConverter } from "../models";
-import {
-  doc,
-  db,
-  addDoc,
-  collection,
-  createUserWithEmailAndPassword,
-  updateProfile,
-  setDoc,
-} from "../lib/firebase";
-// import { setDoc } from "firebase/firestore/lite";
+import { doesUsernameExist, createUser,updateUser } from "../services/auth";
 
 function Signup() {
   const history = useNavigate();
@@ -27,7 +16,6 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const isValid = password === "" || email === "";
 
   const handleSignup = async (e) => {
     e.preventDefault();

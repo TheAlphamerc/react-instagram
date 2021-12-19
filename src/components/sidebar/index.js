@@ -13,11 +13,11 @@ import Suggestions from "./suggestions";
 
 function Sidebar() {
  const user = useUser();
-
+ console.log("Render Sidebar");
   return (
     <div className="p-4">
       <User user={user}/>
-      <Suggestions />
+      <Suggestions userId={user.userId}/>
     </div>
   );
 }

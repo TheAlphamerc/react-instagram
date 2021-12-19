@@ -1,8 +1,15 @@
 import {useEffect} from "react";
+// import { seedDatabase } from "../seed";
+// import {db,collection,setDoc,doc} from "../lib/firebase";
 import * as Components from "../components/index";
 
 function Dashbaord(){
 useEffect(() => {
+    try {
+        // seedDatabase(db,collection,doc,setDoc);
+    } catch (error) {
+        console.error(error);
+    }
     document.title = "Instagram";
 });
 

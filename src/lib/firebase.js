@@ -9,6 +9,8 @@ import {
   doc,
   setDoc,
   where,
+  limit,
+  updateDoc,
 } from "firebase/firestore";
 import {
   signOut,
@@ -17,9 +19,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  
 } from "firebase/auth";
-
-import { seedDatabase } from "../seed.js";
 
 const config = {
   apiKey: "AIzaSyDAv_F_c6Wg-LsVhbL38Z9RHMyW3A5bTwA",
@@ -35,7 +36,6 @@ const firebase = initializeApp(config);
 
 const db = getFirestore(firebase);
 
-// seedDatabase(db);
 export {
   updateProfile,
   getAuth,
@@ -44,4 +44,17 @@ export {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 };
-export { firebase, db, collection, doc, where, query, getDocs,getDoc, addDoc, setDoc };
+export {
+  firebase,
+  db,
+  collection,
+  doc,
+  limit,
+  where,
+  query,
+  getDocs,
+  getDoc,
+  addDoc,
+  setDoc,
+  updateDoc,
+};

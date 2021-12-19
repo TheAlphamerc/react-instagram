@@ -8,6 +8,7 @@ function UseAuthListener() {
   const {firebase} = useContext(FirebaseContext);
 
   const { getAuth,onAuthStateChanged } = useContext(FirebaseContext);
+  
   useEffect(() => {
     const auth = getAuth();
     const listener = onAuthStateChanged(auth, (user) => {
