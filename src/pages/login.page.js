@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import {  useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import cx from "classnames";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import * as Route from "../constants/routes";
 import { Link } from "react-router-dom";
+import { loginWithEmailPassword } from "../services/auth";
 
 function Login() {
   const history = useNavigate();
@@ -12,38 +12,13 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          history(Route.DASHBOARD);
-        })
-        .catch((error) => {
-          console.log(error.code);
-          switch (error.code) {
-            case "auth/invalid-email":
-              setError("Email or password is invalid");
-              break;
-            case "auth/user-not-found":
-              setError("User not exists"); 
-              break;
-            case "auth/wrong-password":
-              setError("Wrong password");
-              break;
-            
-            default: 
-            console.log(error.code);
-            console.log(error.message);
-            setError("Some thing went wrong. Please try again later");
-              break;
-          }
-        });
+      await loginWithEmailPassword(email, password);
+      history(Route.DASHBOARD);
     } catch (e) {
-      setError(e.message);
+      setError(e);
     }
   };
 
@@ -91,8 +66,7 @@ function Login() {
             <button
               type="submit"
               className={cx(
-                "bg-blue-500 text-white w-full py-3 rounded font-bold px-4 rounded mb-2",
-                
+                "bg-blue-500 text-white w-full py-3 rounded font-bold px-4 rounded mb-2"
               )}
             >
               Log in
@@ -102,7 +76,10 @@ function Login() {
         <div className="flex justfy-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
           <p className="text-sm">
             Don't have an account?{" "}
-            <Link to={Route.SIGNUP_ROUTE} className="font-bold text-blue-medium">
+            <Link
+              to={Route.SIGNUP_ROUTE}
+              className="font-bold text-blue-medium"
+            >
               Sign up
             </Link>
           </p>

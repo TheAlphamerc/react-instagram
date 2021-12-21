@@ -1,14 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import FirebaseContext from "../context/firebase";
+import { FirebaseContext } from "../context/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function UseAuthListener() {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("authUser"))
   );
-  const {firebase} = useContext(FirebaseContext);
+  const { firebase } = useContext(FirebaseContext);
 
-  const { getAuth,onAuthStateChanged } = useContext(FirebaseContext);
-  
   useEffect(() => {
     const auth = getAuth();
     const listener = onAuthStateChanged(auth, (user) => {
@@ -19,13 +18,15 @@ function UseAuthListener() {
         // ...
       } else {
         // User is signed out
-       localStorage.removeItem("authUser");
+        localStorage.removeItem("authUser");
         setUser(null);
+        console.log("User Deleted");
       }
     });
-    return ()=> listener();
-  },[firebase]);
-  return {user}
+    return () => listener();
+  }, [firebase]);
+
+  return user;
 }
 
 export default UseAuthListener;

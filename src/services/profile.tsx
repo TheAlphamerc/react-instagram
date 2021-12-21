@@ -1,17 +1,7 @@
+import { db } from "../lib/firebase";
 import {
-    db,
-    where,
-    query,
-    collection,
-    getDocs,
-    setDoc,
-    updateProfile,
-    limit,
-
-} from "../lib/firebase";
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
-
-import { getUserByUserId } from "./auth";
+    collection, getDocs, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where
+} from "firebase/firestore";
 
 import { Profile, ProfileConverter } from "../models/index";
 

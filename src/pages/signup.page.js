@@ -1,21 +1,20 @@
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
-import FirebaseContext from "../context/firebase";
+import {FirebaseContext} from "../context/firebase";
 import cx from "classnames";
 import * as Route from "../constants/routes";
 import { Link } from "react-router-dom";
-import { doesUsernameExist, createUser,updateUser } from "../services/auth";
+import { doesUsernameExist, createUser } from "../services/auth";
 
 function Signup() {
   const history = useNavigate();
-  const {getAuth} = useContext(FirebaseContext);
+  const { getAuth } = useContext(FirebaseContext);
 
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -28,9 +27,7 @@ function Signup() {
         setError("");
       }
 
-      const auth = getAuth();
-      const profile = await createUser(auth,username,fullname, email, password);
-      await updateUser(auth,profile);
+      await createUser(username, fullname, email, password);
       history(Route.DASHBOARD);
     } catch (e) {
       console.log(e);

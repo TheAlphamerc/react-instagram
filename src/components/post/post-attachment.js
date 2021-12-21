@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 function PostAttachmentComponent({ attachments }) {
-  console.log(attachments);
   if (!attachments) return null;
   return (
     <div className="w-full">

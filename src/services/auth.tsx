@@ -1,17 +1,8 @@
+import { db } from "../lib/firebase";
 import {
-  db,
-  where,
-  query,
-  collection,
-  getDocs,
-  getDoc,
-  createUserWithEmailAndPassword,
-  doc,
-  setDoc,
-  updateProfile,
-  limit
-} from "../lib/firebase";
-
+  collection, getDocs, getDoc, query, doc, setDoc, where
+} from "firebase/firestore";
+import { updateProfile, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { Profile, ProfileConverter } from "../models/index";
 
 async function doesUsernameExist(username: string) {
@@ -28,22 +19,40 @@ async function doesUsernameExist(username: string) {
   }
 }
 
-async function updateUser(auth: any, profile: Profile) {
+async function loginWithEmailPassword(email: string, password: string): Promise<UserCredential> {
+  const auth = getAuth();
   try {
-    const ref = doc(collection(db, "users"), profile.userId).withConverter(ProfileConverter);
+    let userCredential = await signInWithEmailAndPassword(auth, email, password)
+      .catch((error) => {
+        console.log(error.code);
+        switch (error.code) {
+          case "auth/invalid-email":
+            error = "Email or password is invalid";
+            break;
+          case "auth/user-not-found":
+            error = "User not exists";
+            break;
+          case "auth/wrong-password":
+            error = "Incorrect password";
+            break;
 
-    await setDoc(ref, profile);
-    await updateProfile(auth.currentUser, { displayName: profile.fullname });
-
-  } catch (e) {
-    console.log(e);
-    throw (e);
+          default:
+            error = "Some thing went wrong. Please try again later";
+            break;
+        }
+        throw error;
+      });
+    return userCredential;
+  } catch (error) {
+    console.log(error)
+    throw error;
   }
 }
 
 
-async function createUser(auth: any, username: string, fullname: string, email: string, password: string,): Promise<Profile> {
+async function createUser(username: string, fullname: string, email: string, password: string,): Promise<Profile> {
   try {
+    const auth = getAuth();
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
 
       .catch((error) => {
@@ -79,6 +88,15 @@ async function createUser(auth: any, username: string, fullname: string, email: 
       [],
       Date.now()
     );
+
+    const ref = doc(collection(db, "users"), profile.userId).withConverter(ProfileConverter);
+
+    await setDoc(ref, profile);
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      await updateProfile(currentUser, { displayName: profile.fullname });
+    }
+
     return profile;
   } catch (e) {
     console.log(e);
@@ -101,4 +119,4 @@ async function getUserByUserId(userId: string): Promise<Profile> {
   }
 }
 
-export { doesUsernameExist, updateUser, createUser, getUserByUserId };
+export { doesUsernameExist, createUser, loginWithEmailPassword, getUserByUserId };

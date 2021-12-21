@@ -1,15 +1,8 @@
+import { db } from "../lib/firebase";
 import {
-    db,
-    where,
-    query,
-    collection,
-    getDocs,
-    setDoc,
-    updateProfile,
-    limit,
+    collection, getDocs, getDoc, limit, updateDoc, arrayUnion, arrayRemove, query, doc, setDoc, where
+} from "firebase/firestore";
 
-} from "../lib/firebase";
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 import { getUserByUserId } from "./auth";
 
@@ -53,7 +46,7 @@ async function getTimeLineFeed(following: string[]): Promise<PostModel[]> {
             limit(10)
         );
         const docs = await getDocs(querySnapshot)
-        if(docs.docs.length === 0) {
+        if (docs.docs.length === 0) {
             return [];
         }
         const list = docs.docs.map((doc) => doc.data())

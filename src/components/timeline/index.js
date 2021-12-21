@@ -1,14 +1,9 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getTimeLineFeed } from "../../services/feed";
 import PostComponent from "../post";
 import UserFeeds from "../../hook/use-feed";
-import { Profile } from "../../models";
 
-function Timeline({user}) {
-
+function Timeline({ user }) {
   const feed = UserFeeds(user);
 
   return (

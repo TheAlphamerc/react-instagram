@@ -12,15 +12,6 @@ import {
   limit,
   updateDoc,
 } from "firebase/firestore";
-import {
-  signOut,
-  getAuth,
-  updateProfile,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  
-} from "firebase/auth";
 
 const config = {
   apiKey: "AIzaSyDAv_F_c6Wg-LsVhbL38Z9RHMyW3A5bTwA",
@@ -36,25 +27,4 @@ const firebase = initializeApp(config);
 
 const db = getFirestore(firebase);
 
-export {
-  updateProfile,
-  getAuth,
-  signOut,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-};
-export {
-  firebase,
-  db,
-  collection,
-  doc,
-  limit,
-  where,
-  query,
-  getDocs,
-  getDoc,
-  addDoc,
-  setDoc,
-  updateDoc,
-};
+export { firebase, db };
