@@ -1,6 +1,6 @@
 import { db } from "../lib/firebase";
 import {
-    collection, getDocs, getDoc, limit, updateDoc, arrayUnion, arrayRemove, query, doc, setDoc, where
+    collection, getDocs, getDoc, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where, deleteDoc
 } from "firebase/firestore";
 
 
@@ -58,4 +58,40 @@ async function getTimeLineFeed(following: string[]): Promise<PostModel[]> {
     }
 }
 
-export { updateMyFollowingUser, getTimeLineFeed };
+// Increase/Decrease the number of likes of a post
+async function togglePostLike(post: PostModel, userId: string): Promise<void> {
+    try {
+        const likes = post.likes ?? [];
+        const isLiked = likes.includes(userId);
+        if (isLiked) {
+            await updateDoc(doc(collection(db, "posts"), post.id), {
+                likes: arrayRemove(userId)
+            });
+
+            console.log(`Post unliked ${post.id}`);
+        } else {
+            await updateDoc(doc(collection(db, "posts"), post.id), {
+                likes: arrayUnion(userId)
+            });
+            console.log(`Post liked ${post.id}`);
+        }
+    } catch (e) {
+        console.log(e);
+        throw (e);
+    }
+}
+
+// Delete a post if created by the logged in user
+async function deletePost(post: PostModel, userId: string): Promise<void> {
+    try {
+        if (post.createdBy.userId === userId) {
+            await deleteDoc(doc(collection(db, "posts"), post.id));
+        }
+    } catch (e) {
+        console.log(e);
+        throw (e);
+    }
+}
+
+
+export { updateMyFollowingUser, getTimeLineFeed, deletePost, togglePostLike };

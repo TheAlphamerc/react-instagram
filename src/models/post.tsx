@@ -33,7 +33,7 @@ const PostConverter = {
   fromFirestore: (snapshot: any, options: any) => {
     const data = snapshot.data(options);
     return new PostModel(
-      data.id,
+      snapshot.id,
       data.caption,
       data.attachments,
       data.likes,
