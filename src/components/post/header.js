@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 function HeaderComponent({ user }) {
   return (
-    <div className="flex border-b border-gray-300 h-4 px-4 py-8">
+    <div className="flex border-b border-gray-300 h-4 px-2 py-6">
       <div className="flex ">
         <Link to={`/p/${user.username}`} className="flex items-center">
           <img

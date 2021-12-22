@@ -9,18 +9,18 @@ function User({ user }) {
     return <Skeleton count={1} height={51} />;
   } else {
     return (
-      <Link
-        to={`/p${user.username}`}
-        className="grid grid-cols-4 gap-4 mb-6 items center"
-      >
-        <div className="flex items-center justify-between col-span-1">
+      <Link to={`/p${user.username}`} className="flex items center space-x-4">
+        <div className="flex items-center justify-start ">
           <div>
-            <p className="h-8 w-8  font-bold flex items-center   place-content-center ring rounded-full bg-gray-300">
+            <div className="h-10 w-10 rounded-full bg-gray-200 ring ring-blue-400  flex justify-center items-center font-semibold">
+              {user.avatar != null && (
+                <img className="rounded-full" alt="A" src={user.avatar} />
+              )}
               {user.fullname ? user.fullname.substring(0, 2).toUpperCase() : ""}
-            </p>
+            </div>
           </div>
         </div>
-        <div className="col-span-3 ">
+        <div className=" ">
           <div className="text-sm font-bold text-gray-700">{user.fullname}</div>
           <div className="text-sm  text-gray-500">{user.username}</div>
         </div>

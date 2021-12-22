@@ -14,8 +14,7 @@ function Timeline({ user }) {
         </div>
       ) : feed.length > 0 ? (
         <div>
-          <p className="font-bold text-gray-700 mb-2">Suggestions</p>
-          <div className="mt-4 grid gap-5">
+          <div className=" grid gap-5">
             {feed.map((post, index) => (
               <PostComponent key={index} post={post} />
             ))}

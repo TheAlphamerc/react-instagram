@@ -12,14 +12,24 @@ function SuggestedProfile({ user, loggedInUserId }) {
 
     await updateMyFollowingUser(loggedInUserId, user.userId, followed);
   }
-    // if(followed){
-    //     return null;
-    // }
+  // if(followed){
+  //     return null;
+  // }
 
   return (
     <div className="flex flex-row items-center align-items justify-between">
       <div className="flex items-center justify-between">
-        <img src={user.avatar} alt="" className="rounded-full w-8 flex mr-3" />
+        {/* <img src={user.avatar} alt="" className="rounded-full w-8 flex mr-3" /> */}
+        <div className="h-8 w-8 rounded-full bg-gray-200  mr-3 text-sm  flex justify-center items-center font-semibold">
+          {user.avatar != null ? (
+            <img className="rounded-full" alt="A" src={user.avatar} />
+          ) : user.fullname ? (
+            user.fullname.substring(0, 2).toUpperCase()
+          ) : (
+            ""
+          )}
+        </div>
+
         <Link to={`/p/${user.userId}`}>
           <p className="fon-bold text-sm flex mr-3">{user.fullname}</p>
         </Link>

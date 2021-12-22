@@ -5,13 +5,21 @@ import { PostConverter, PostModel } from "./models/post";
 export async function seedDatabase(db: any, collection: any, doc: any, setDoc: any) {
   const users = [
     new Profile(
+      // User id
       "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
+      // User name
       "John Doe",
+      // Unique user name
       "johndoe",
+      // User email
       "jon.doe@gmail.com",
+      // User avatar
       "https://i.pravatar.cc/300",
+      // User ids of following user
       [],
+      // User ids of followers user
       ["bEIPMd9MPpX6nDrN2cdi0vIqYgabc"],
+      // Profile creation date
       Date.now()
     ),
     new Profile(
@@ -54,31 +62,39 @@ export async function seedDatabase(db: any, collection: any, doc: any, setDoc: a
   }
 
   const post = new PostModel(
+    // Post id
     "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
+    // Post caption
     "Saint George and the Dragon",
-    [],
+    // Attchements list
+    ["https://picsum.photos/500/500"],
+    // UserIds of the users who liked the post
     ["1", "2", "3"],
+    // Comments
     [
       new CommentModel(
         "bEIPMd9MPpX6nDr",
         "This is ammazing",
         ["1", "2", "3"],
-
+        // User who created the comment
         Profile.postUser(
           "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
           "John Doe",
           "johndoe",
           "https://i.pravatar.cc/300"
         ),
+        // Date of the comment
         Date.now(),
       )
     ],
+    /// User who created the post
     Profile.postUser(
       "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
       "John Doe",
       "johndoe",
       "https://i.pravatar.cc/300"
     ),
+    // Date of the post
     Date.now()
   );
   for (let i = 1; i <= 5; ++i) {
