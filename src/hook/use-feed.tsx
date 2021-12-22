@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { PostModel } from "../models/post";
 import { getTimeLineFeed } from "../services/feed";
+import UsePost from "./use-post";
 
 function UserFeeds(user: any): PostModel[] {
 
   const [feed, setFeeds] = useState<any>({});
+  const updatedPost = UsePost();
   var following: string[] = user != undefined ? user.following ?? [] : [];
 
   useEffect(() => {
@@ -20,10 +22,20 @@ function UserFeeds(user: any): PostModel[] {
 
     if (user != undefined && user.userId != undefined) {
       getTimelineFeed();
-    }else{
+    } else {
       setFeeds({});
     }
   }, [user]);
+
+  // Update feed if [post] is updated
+  useEffect(() => {
+    if (updatedPost != undefined) {
+      const list = feed;
+      list.unshift(updatedPost);
+      setFeeds(list);
+      console.log("Updated Feed", list);
+    }
+  }, [updatedPost]);
 
   return feed;
 }
