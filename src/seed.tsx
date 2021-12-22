@@ -1,5 +1,5 @@
 // import { collection,setDoc } from "firebase/firestore/lite";
-import { Profile, ProfileConverter } from "./models";
+import { CommentModel, Profile, ProfileConverter } from "./models";
 import { PostConverter, PostModel } from "./models/post";
 // NOTE: replace 'bEIPMd9MPpX6nDrN29Qi0vIqYg123' with your Firebase auth user id (can be taken from Firebase)
 export async function seedDatabase(db: any, collection: any, doc: any, setDoc: any) {
@@ -57,7 +57,22 @@ export async function seedDatabase(db: any, collection: any, doc: any, setDoc: a
     "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
     "Saint George and the Dragon",
     [],
-    ["https://i.pravatar.cc/300",],
+    ["1", "2", "3"],
+    [
+      new CommentModel(
+        "bEIPMd9MPpX6nDr",
+        "This is ammazing",
+        ["1", "2", "3"],
+
+        Profile.postUser(
+          "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
+          "John Doe",
+          "johndoe",
+          "https://i.pravatar.cc/300"
+        ),
+        Date.now(),
+      )
+    ],
     Profile.postUser(
       "bEIPMd9MPpX6nDrN29Qi0vIqYg123",
       "John Doe",

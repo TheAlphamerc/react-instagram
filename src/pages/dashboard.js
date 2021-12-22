@@ -2,9 +2,7 @@ import { useEffect } from "react";
 // import { seedDatabase } from "../seed";
 // import {db,collection,setDoc,doc} from "../lib/firebase";
 import * as Components from "../components/index";
-import { withSessionProvider } from "../context/session";
 import { withSession } from "../context/session";
-import { withFirebase } from "../context/firebase";
 
 function Dashbaord({ user }) {
   useEffect(() => {

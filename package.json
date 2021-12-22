@@ -11,7 +11,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "classnames": "^2.3.1",
-    "data-fns": "^0.1.8",
+    "date-fns": "^2.27.0",
     "eslint": "^7.32.0",
     "firebase": "^9.6.1",
     "npm": "^8.3.0",
