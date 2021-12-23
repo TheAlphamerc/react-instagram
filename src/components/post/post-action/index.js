@@ -7,12 +7,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import cx from "classnames";
 
-function PostActionComponent({ user, post, onAction = (actionType) => {} }) {
+function PostActionComponent({
+  user,
+  post,
+  onAction = (actionType) => {},
+  handleFocus,
+}) {
   const [isLiked, setIsLiked] = useState(post.likes.includes(user.userId));
 
   const [likes, setLike] = useState(post.likes.length);
   return (
-    <div className="p-2 border">
+    <div className="flex items-center p-2 ">
       <button
         onClick={() => {
           onAction("like");
@@ -28,9 +33,23 @@ function PostActionComponent({ user, post, onAction = (actionType) => {} }) {
           icon={isLiked ? faHeart : emptyHeart}
         />
       </button>
-
-      <FontAwesomeIcon className="mx-4 select-none cursor-pointer" icon={faCommentDots} />
-      <p className="font-bold"> {likes === 1 ? `${likes} likes` : `${likes} like`}</p>
+      <p className="text-sm font-bold ml-2">
+        {" "}
+        {likes === 1 ? `${likes} likes` : `${likes} like`}
+      </p>
+      <div
+        onClick={() => handleFocus()}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            handleFocus();
+          }
+        }}
+      >
+        <FontAwesomeIcon
+          className="mx-4 select-none cursor-pointer"
+          icon={faCommentDots}
+        />
+      </div>
     </div>
   );
 }

@@ -1,12 +1,10 @@
 import { db } from "../lib/firebase";
 import {
-    collection, getDocs, getDoc, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where, deleteDoc
+    collection, getDocs, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where, deleteDoc
 } from "firebase/firestore";
 
 
-import { getUserByUserId } from "./auth";
-
-import { Profile, ProfileConverter } from "../models/index";
+import { CommentConverter, CommentModel } from "../models/index";
 import { PostConverter, PostModel } from "../models/post";
 
 
@@ -81,6 +79,19 @@ async function togglePostLike(post: PostModel, userId: string): Promise<void> {
     }
 }
 
+// Add new comment in a post
+async function addComment(comment: CommentModel, postId: string): Promise<void> {
+    try {
+        const map = CommentConverter.toFirestore(comment);
+        await updateDoc(doc(collection(db, "posts").withConverter(PostConverter), postId), {
+            comments: arrayUnion()
+        });
+    } catch (e) {
+        console.log(e);
+        throw (e);
+    }
+}
+
 // Delete a post if created by the logged in user
 async function deletePost(post: PostModel, userId: string): Promise<void> {
     try {
@@ -94,4 +105,4 @@ async function deletePost(post: PostModel, userId: string): Promise<void> {
 }
 
 
-export { updateMyFollowingUser, getTimeLineFeed, deletePost, togglePostLike };
+export { updateMyFollowingUser, getTimeLineFeed, deletePost, togglePostLike, addComment };

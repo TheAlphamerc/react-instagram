@@ -3,17 +3,15 @@ import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 
 function CommentsComponent({ allComments, postedAt }) {
-  const [comments, setComments] = useState(allComments);
-  console.log("postedAt", postedAt);
   return (
     <div>
       <div className="pt-1">
-        {comments.length >= 3 && (
+        {allComments.length >= 3 && (
           <p className="text-sm-text-gray-bae mb-1 cursor-pointer">
-            View all {comments.length} comments
+            View all {allComments.length} allComments
           </p>
         )}
-        {comments.slice(0, 3).map((comment, index) => (
+        {allComments.slice(0, 3).map((comment, index) => (
           <p key={index} className="mb-1">
             <Link to={`${comment.createdBy.fullname}}`}>
               <span className="mr-1 text-sm  font-bold">
