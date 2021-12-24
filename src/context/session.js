@@ -7,7 +7,6 @@ SessionContext.displayName = "SessionContext";
 
 export const withSessionProvider = (Component) => (props) => {
   const user = UseUser();
-  console.log("withSessionProvider user", user);
   return (
     <SessionContext.Provider value={user}>
       <Component {...props} />

@@ -12,7 +12,6 @@ function UserFeeds(user: any): PostModel[] {
   useEffect(() => {
     async function getTimelineFeed() {
       following.push(user.userId);
-      console.log("Get Timeline Feed");
       const list = await getTimeLineFeed(following);
       if (list.length > 0) {
         list.sort((a, b) => b.createdAt - a.createdAt);
@@ -33,7 +32,6 @@ function UserFeeds(user: any): PostModel[] {
       const list = feed;
       list.unshift(updatedPost);
       setFeeds(list);
-      console.log("Updated Feed", list);
     }
   }, [updatedPost]);
 

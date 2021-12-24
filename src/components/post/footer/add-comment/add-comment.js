@@ -25,6 +25,7 @@ function AddCommentComponent({
           Date.now()
       );
       onNewCommentAdd(comment);
+      setCaption("");
     }
   };
   return (
