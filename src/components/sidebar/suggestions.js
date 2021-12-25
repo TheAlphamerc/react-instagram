@@ -2,15 +2,18 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useEffect, useState } from "react";
 import SuggestedProfile from "./suggested-profile";
-import { getSuggestedProfiles } from "../../services/profile";
+import ProfileService from "../../services/profile";
 
 function Suggestions({ userId }) {
   const [suggestedUsers, setSuggestedUsers] = useState(null);
 
-  useEffect(async () => {
-    if (userId) {
-      const list = await getSuggestedProfiles(userId);
+  useEffect( () => {
+    async function fetchSuggestedProfiles() {
+      const list = await ProfileService.getSuggestedProfiles(userId);
       setSuggestedUsers(list);
+    }
+    if (userId) {
+      fetchSuggestedProfiles(); 
     }
   }, [userId]);
 

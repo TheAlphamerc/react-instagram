@@ -9,9 +9,7 @@ function Timeline({ user }) {
   return (
     <div className="container col-span-2">
       {!feed ? (
-        <div className="">
-          <Skeleton count={10} height={220} />
-        </div>
+        <Skeleton count={10} height={220} />
       ) : feed.length > 0 ? (
         <div>
           <div className=" grid gap-5">
@@ -21,6 +19,8 @@ function Timeline({ user }) {
           </div>
         </div>
       ) : null}
+      {!feed ||
+        (feed.length === 0 && <p className="text-center">No Post Yet</p>)}
     </div>
   );
 }

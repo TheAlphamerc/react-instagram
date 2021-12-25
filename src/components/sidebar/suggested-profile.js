@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { updateMyFollowingUser } from "../../services/profile";
+import ProfileService from "../../services/profile";
 
 function SuggestedProfile({ user, loggedInUserId }) {
   const [followed, setFollowed] = useState(
@@ -10,7 +10,7 @@ function SuggestedProfile({ user, loggedInUserId }) {
   async function handleFollowUser() {
     setFollowed(!followed);
 
-    await updateMyFollowingUser(loggedInUserId, user.userId, followed);
+    await ProfileService.updateMyFollowingUser(loggedInUserId, user.userId, followed);
   }
   // if(followed){
   //     return null;
@@ -30,7 +30,7 @@ function SuggestedProfile({ user, loggedInUserId }) {
           )}
         </div>
 
-        <Link to={`/p/${user.userId}`}>
+        <Link to={`/p/${user.username}`}>
           <p className="fon-bold text-sm flex mr-3">{user.fullname}</p>
         </Link>
       </div>

@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useState } from "react";
 import cx from "classnames";
-import { togglePostLike, addComment } from "../../../services/feed";
+import FeedService from "../../../services/feed";
 import CommentsComponent from "./comment/comments";
 import AddCommentComponent from "./add-comment/add-comment.js";
 
@@ -19,10 +19,10 @@ function PostFooterComponent({ user, post }) {
     try {
       switch (actionType) {
         case "like":
-          await togglePostLike(post, user.userId);
+          await FeedService.togglePostLike(post, user.userId);
           break;
         case "newComment":
-          addComment(data, post.id);
+          FeedService.addComment(data, post.id);
           setComments([data, ...comments]);
           break;
         default:

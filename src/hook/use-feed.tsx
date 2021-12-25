@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { PostModel } from "../models/post";
-import { getTimeLineFeed } from "../services/feed";
+import FeedService from "../services/feed";
 import UsePost from "./use-post";
 
 function UserFeeds(user: any): PostModel[] {
 
   const [feed, setFeeds] = useState<any>({});
   const updatedPost = UsePost();
-  var following: string[] = user != undefined ? user.following ?? [] : [];
 
   useEffect(() => {
     async function getTimelineFeed() {
+      var following: string[] = user != undefined ? user.following ?? [] : [];
       following.push(user.userId);
-      const list = await getTimeLineFeed(following);
+      const list = await FeedService.getTimeLineFeed(following);
       if (list.length > 0) {
         list.sort((a, b) => b.createdAt - a.createdAt);
       }
@@ -33,7 +33,7 @@ function UserFeeds(user: any): PostModel[] {
       list.unshift(updatedPost);
       setFeeds(list);
     }
-  }, [updatedPost]);
+  }, [updatedPost,feed]);
 
   return feed;
 }

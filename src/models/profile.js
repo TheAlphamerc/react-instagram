@@ -53,7 +53,7 @@ const ProfileConverter = {
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
     return new Profile(
-      data.userId,
+      snapshot.id,
       data.fullname,
       data.username,
       data.email,

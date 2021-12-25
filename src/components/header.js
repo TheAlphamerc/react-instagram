@@ -5,11 +5,7 @@ import { signOut, getAuth } from "firebase/auth";
 import { faHome, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 function Header({ user }) {
-  // const { user } = useContext(UserContext);
   const isLogout = user && Object.keys(user).length === 0;
-
-  console.log("Header user", user);
-  console.log("Header isLogout", isLogout);
   return (
     <div className="h-16 bg-white border-b border-gray-200 mb-8">
       <div className="container mx-auto  max-w-screen-lg h-full">
@@ -48,7 +44,7 @@ function Header({ user }) {
                 </button>
                 {!user.fullname ? null : (
                   <div className="flex items-center cursor-pointer">
-                    <Link to={`/p/${user.fullname}`}>
+                    <Link to={`/p/${user.username}`}>
                       <div className="h-8 w-8 ml-4 font-bold flex items-center   place-content-center ring rounded-full bg-gray-300">
                         {user.fullname.substring(0, 2).toUpperCase()}
                       </div>

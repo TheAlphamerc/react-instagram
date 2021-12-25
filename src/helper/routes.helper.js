@@ -20,4 +20,4 @@ function getLoggedInRoute(user, element) {
   return element;
 }
 export { Profile, Login, Signup, Dashbaord, NoPageFound };
-export { getProtectedRoute, getLoggedInRoute };
+export { getProtectedRoute, getLoggedInRoute ,ROUTES as RouteHelper};

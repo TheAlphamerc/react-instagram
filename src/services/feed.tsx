@@ -7,102 +7,93 @@ import {
 import { CommentConverter, CommentModel } from "../models/index";
 import { PostConverter, PostModel } from "../models/post";
 
+class FeedService {
+    // Get user following posts
+    static async getTimeLineFeed(following: string[]): Promise<PostModel[]> {
+        try {
+            console.log("Get Feed for", following);
+            const querySnapshot = query(
+                collection(db, "posts").withConverter(PostConverter),
+                where("createdBy.userId", "in", following),
+                limit(10)
+            );
+            const docs = await getDocs(querySnapshot)
+            if (docs.docs.length === 0) {
+                return [];
+            }
+            const list = docs.docs.map((doc) => doc.data())
+            return list;
 
-
-async function updateMyFollowingUser(loggedInUserId: string, secondUserId: string, isFollow: boolean) {
-    try {
-        if (isFollow) {
-
-            await updateDoc(doc(collection(db, "users"), loggedInUserId), {
-                following: arrayRemove(secondUserId)
-            });
-            await updateDoc(doc(collection(db, "users"), secondUserId), {
-                followers: arrayRemove(loggedInUserId)
-            });
-        } else {
-
-            await updateDoc(doc(collection(db, "users"), loggedInUserId), {
-                following: arrayUnion(secondUserId)
-            });
-            await updateDoc(doc(collection(db, "users"), secondUserId), {
-                followers: arrayUnion(loggedInUserId)
-            });
+        } catch (e) {
+            console.log(e);
+            throw (e);
         }
-    } catch (e) {
-        console.log(e);
-        throw (e);
     }
-}
 
+    // Increase/Decrease the number of likes of a post
+    static async togglePostLike(post: PostModel, userId: string): Promise<void> {
+        try {
+            const likes = post.likes ?? [];
+            const isLiked = likes.includes(userId);
+            if (isLiked) {
+                await updateDoc(doc(collection(db, "posts"), post.id), {
+                    likes: arrayRemove(userId)
+                });
 
-async function getTimeLineFeed(following: string[]): Promise<PostModel[]> {
-    try {
-
-        const querySnapshot = query(
-            collection(db, "posts").withConverter(PostConverter),
-            where("createdBy.userId", "in", following),
-            limit(10)
-        );
-        const docs = await getDocs(querySnapshot)
-        if (docs.docs.length === 0) {
-            return [];
+                console.log(`Post unliked ${post.id}`);
+            } else {
+                await updateDoc(doc(collection(db, "posts"), post.id), {
+                    likes: arrayUnion(userId)
+                });
+                console.log(`Post liked ${post.id}`);
+            }
+        } catch (e) {
+            console.log(e);
+            throw (e);
         }
-        const list = docs.docs.map((doc) => doc.data())
-        return list;
-
-    } catch (e) {
-        console.log(e);
-        throw (e);
     }
-}
 
-// Increase/Decrease the number of likes of a post
-async function togglePostLike(post: PostModel, userId: string): Promise<void> {
-    try {
-        const likes = post.likes ?? [];
-        const isLiked = likes.includes(userId);
-        if (isLiked) {
-            await updateDoc(doc(collection(db, "posts"), post.id), {
-                likes: arrayRemove(userId)
+    // Add new comment in a post
+    static async addComment(comment: CommentModel, postId: string): Promise<void> {
+        try {
+            const map = CommentConverter.toFirestore(comment);
+            await updateDoc(doc(collection(db, "posts").withConverter(PostConverter), postId), {
+                comments: arrayUnion()
             });
-
-            console.log(`Post unliked ${post.id}`);
-        } else {
-            await updateDoc(doc(collection(db, "posts"), post.id), {
-                likes: arrayUnion(userId)
-            });
-            console.log(`Post liked ${post.id}`);
+        } catch (e) {
+            console.log(e);
+            throw (e);
         }
-    } catch (e) {
-        console.log(e);
-        throw (e);
     }
-}
 
-// Add new comment in a post
-async function addComment(comment: CommentModel, postId: string): Promise<void> {
-    try {
-        const map = CommentConverter.toFirestore(comment);
-        await updateDoc(doc(collection(db, "posts").withConverter(PostConverter), postId), {
-            comments: arrayUnion()
-        });
-    } catch (e) {
-        console.log(e);
-        throw (e);
-    }
-}
-
-// Delete a post if created by the logged in user
-async function deletePost(post: PostModel, userId: string): Promise<void> {
-    try {
-        if (post.createdBy.userId === userId) {
-            await deleteDoc(doc(collection(db, "posts"), post.id));
+    // Delete a post if created by the logged in user
+    static async deletePost(post: PostModel, userId: string): Promise<void> {
+        try {
+            if (post.createdBy.userId === userId) {
+                await deleteDoc(doc(collection(db, "posts"), post.id));
+            }
+        } catch (e) {
+            console.log(e);
+            throw (e);
         }
-    } catch (e) {
-        console.log(e);
-        throw (e);
+    }
+
+    // Get user's post
+    static async getUserPostsByUsername(username: string): Promise<PostModel[]> {
+        try {
+            const querySnapshot = query(
+                collection(db, "posts").withConverter(PostConverter),
+                where("createdBy.username", "==", username),
+                limit(10)
+            );
+            const docs = await getDocs(querySnapshot)
+            const list = docs.docs.map((doc) => doc.data())
+            return list;
+        } catch (e) {
+            console.log(e);
+            throw (e);
+        }
     }
 }
 
-
-export { updateMyFollowingUser, getTimeLineFeed, deletePost, togglePostLike, addComment };
+export default FeedService;

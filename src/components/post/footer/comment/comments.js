@@ -8,7 +8,7 @@ function CommentsComponent({ allComments, postedAt }) {
       <div className="pt-1">
         {allComments.length >= 3 && (
           <p className="text-sm-text-gray-bae mb-1 cursor-pointer">
-            View all {allComments.length} allComments
+            View all Comments
           </p>
         )}
         {allComments.slice(0, 3).map((comment, index) => (

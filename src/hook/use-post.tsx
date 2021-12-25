@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { onSnapshot, collection } from "firebase/firestore";
 import { PostConverter, PostModel } from "../models/post";
-import { getTimeLineFeed } from "../services/feed";
 import { FirebaseContext } from "../context/firebase";
 
 function UsePost(): PostModel | undefined {
@@ -28,7 +27,7 @@ function UsePost(): PostModel | undefined {
             console.log("Listener ", error);
         }
 
-    }, [updatePost]);
+    }, [updatePost,db]);
 
     return updatePost;
 }

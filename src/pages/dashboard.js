@@ -8,7 +8,6 @@ function Dashbaord({ user }) {
   useEffect(() => {
     try {
       // seedDatabase(db,collection,doc,setDoc);
-      console.log("Dashboard user", user);
     } catch (error) {
       console.error(error);
     }
