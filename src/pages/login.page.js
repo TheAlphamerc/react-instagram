@@ -29,7 +29,7 @@ function Login() {
   return (
     <div className="container mx-auto flex max-w-screen-md h-screen">
       <div className="flex w-3/5  m-auto ">
-        <img src="/images/iphone-with-profile.jpg" alt="iPhone" />
+        <img className="aspect-[9/12.31]" src="/images/iphone-with-profile.jpg" alt="iPhone" />
       </div>
 
       <div className="flex flex-col w-2/5 place-content-center ">
