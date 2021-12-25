@@ -5,7 +5,7 @@ import UsePost from "./use-post";
 
 function UserFeeds(user: any): PostModel[] {
 
-  const [feed, setFeeds] = useState<any>({});
+  const [feed, setFeeds] = useState<any>();
   const updatedPost = UsePost();
 
   useEffect(() => {
