@@ -7,12 +7,12 @@ function Timeline({ user }) {
   const feed = UserFeeds(user);
 
   return (
-    <div className="container col-span-2">
+    <div className="col-span-2 overflow-y-scroll">
       {!feed ? (
         <Skeleton count={10} height={220} />
       ) : feed.length > 0 ? (
-        <div>
-          <div className=" grid gap-5">
+        <div className="pt-6 pb-4">
+          <div className="grid gap-5">
             {feed.map((post, index) => (
               <PostComponent key={index} post={post} />
             ))}

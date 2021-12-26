@@ -15,7 +15,7 @@ function Header({ user }) {
   const [createPostModel, setCreatePostModel] = useState(false);
 
   return (
-    <div className="h-16 bg-white border-b border-gray-200 mb-8">
+    <div className="fixed top-0 right-0 left-0 z-10 h-16 bg-white border-b border-gray-200 mb-8">
       <CreatePostModelComponent
         user={user}
         active={createPostModel}
