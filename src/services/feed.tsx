@@ -1,6 +1,6 @@
 import { db } from "../lib/firebase";
 import {
-    collection, getDocs, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where, deleteDoc
+    collection, getDocs, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where, deleteDoc,setDoc
 } from "firebase/firestore";
 
 
@@ -11,7 +11,6 @@ class FeedService {
     // Get user following posts
     static async getTimeLineFeed(following: string[]): Promise<PostModel[]> {
         try {
-            console.log("Get Feed for", following);
             const querySnapshot = query(
                 collection(db, "posts").withConverter(PostConverter),
                 where("createdBy.userId", "in", following),
@@ -89,6 +88,18 @@ class FeedService {
             const docs = await getDocs(querySnapshot)
             const list = docs.docs.map((doc) => doc.data())
             return list;
+        } catch (e) {
+            console.log(e);
+            throw (e);
+        }
+    }
+
+    // Create post
+    static async createPost(post: PostModel): Promise<void> {
+        try {
+            console.log("Post saving start");
+            const ref = doc(collection(db, "posts").withConverter(PostConverter));
+            await setDoc(ref, post);
         } catch (e) {
             console.log(e);
             throw (e);

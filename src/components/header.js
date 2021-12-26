@@ -1,13 +1,27 @@
+import { useState } from "react";
 import * as ROUTES from "../constants/routes";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signOut, getAuth } from "firebase/auth";
-import { faHome, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faPlus,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import CreatePostModelComponent from "../components/create-post/create-post-model-component";
 
 function Header({ user }) {
   const isLogout = user && Object.keys(user).length === 0;
+  const [createPostModel, setCreatePostModel] = useState(false);
+
   return (
     <div className="h-16 bg-white border-b border-gray-200 mb-8">
+      <CreatePostModelComponent
+        user={user}
+        active={createPostModel}
+        setActive={setCreatePostModel}
+      />
+
       <div className="container mx-auto  max-w-screen-lg h-full">
         <div className="flex justify-between h-full px-4">
           {/* LOGO */}
@@ -30,6 +44,15 @@ function Header({ user }) {
                 >
                   <FontAwesomeIcon className="" icon={faHome} />
                 </Link>
+                <div
+                  className="flex items-center justify-center border-2 border-black rounded h-6 w-6 cursor-pointer mr-4 select-none"
+                  onClick={() => {
+                    setCreatePostModel(true);
+                    console.log("create post", createPostModel);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                </div>
                 <button
                   type="button"
                   title="Sign out"

@@ -10,7 +10,7 @@ import cx from "classnames";
 
 function Photos({ photos, user }) {
   return (
-    <div className="h-16 border-t border-gray-400 mt-12 pt-4">
+    <div className="h-16 border-t border-gray-300 mt-12 pt-4">
       <div className="grid grid-cols-3 gap-8 mt-4 mb-12">
         {!photos ? (
           <Skeleton height={100} width={100} count={3} />

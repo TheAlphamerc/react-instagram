@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ProfileService from "../../services/profile";
 import FeedService from "../../services/feed";
 import Skeleton from "react-loading-skeleton";
-
+import { UserAvtar } from "..";
 function ProfileHeader({
   profile,
   loggedInUser,
@@ -32,7 +32,8 @@ function ProfileHeader({
   return (
     <div className="grid grid-cols-3 gap-4 justify-between max-auto max-w-screen-lg ">
       <div className="container flex justfy-center">
-        <img className="rounded-full h-32 w-32 flex " src={profile.avatar} />
+        {/* <img className="rounded-full h-32 w-32 flex " src={profile.avatar} /> */}
+        <UserAvtar className="h-32 w-32 text-4xl" avatar={profile.avatar} fullname={profile.fullname} username={profile.username}/>
       </div>
       <div className="flex items-center justify-center flex-col col-span-2">
         <div className="container flex items-center">
