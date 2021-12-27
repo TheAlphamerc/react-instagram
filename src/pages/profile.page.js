@@ -35,7 +35,7 @@ function ProfilePage({ user }) {
     return <Loader />;
   }
   return (
-    <div className="bg-gray-100 h-screen">
+    <div className="bg-gray-100 h-screen space-y-16">
       <Header user={user} />
       <ProfileComponent profile={profile} loggedInUser={user} />
     </div>

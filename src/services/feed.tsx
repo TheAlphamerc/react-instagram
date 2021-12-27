@@ -11,9 +11,10 @@ class FeedService {
     // Get user following posts
     static async getTimeLineFeed(following: string[]): Promise<PostModel[]> {
         try {
+            var fol = following.slice(0, 9);
             const querySnapshot = query(
                 collection(db, "posts").withConverter(PostConverter),
-                where("createdBy.userId", "in", following),
+                where("createdBy.userId", "in", fol),
                 limit(10)
             );
             const docs = await getDocs(querySnapshot)

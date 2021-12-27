@@ -15,9 +15,9 @@ function Dashbaord({ user }) {
   }, [user]);
 
   return (
-    <div className="bg-gray-100 space-y-16">
+    <div className="bg-gray-100 space-y-16 overscroll-none ">
       <Components.Header user={user} />
-      <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg h-screen">
+      <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg  overscroll-none">
         <Components.Timeline user={user} />
         <Components.Sidebar user={user} />
       </div>

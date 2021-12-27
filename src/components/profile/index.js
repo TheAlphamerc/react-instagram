@@ -33,7 +33,7 @@ function ProfileComponent({ profile, loggedInUser }) {
   }, [profile.username]);
 
   return (
-    <div className="mx-auto max-w-screen-lg">
+    <div className="mx-auto max-w-screen-lg pt-6">
       <ProfileHeader
         profile={profile}
         loggedInUser={loggedInUser}
