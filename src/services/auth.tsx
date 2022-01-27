@@ -15,7 +15,7 @@ async function doesUsernameExist(username: string) {
     return docs.docs.length > 0;
   } catch (e) {
     console.log(e);
-    throw Error("Somethng went wrong");
+    throw Error("Something went wrong");
   }
 }
 
@@ -34,6 +34,10 @@ async function loginWithEmailPassword(email: string, password: string): Promise<
             break;
           case "auth/wrong-password":
             error = "Incorrect password";
+            break;
+
+          case "auth/too-many-requests":
+            error = "You have tried too many times. Please try again later";
             break;
 
           default:

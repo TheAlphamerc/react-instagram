@@ -6,7 +6,6 @@ const loaderStyleOuter = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: "white",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -28,7 +27,7 @@ const loaderStyleInner = {
 
 export default function Loader() {
   return (
-    <div className="Loader animate-spin" style={loaderStyleOuter}>
+    <div className=" flex   animate-spin" style={loaderStyleOuter}>
       <div className="spinner" style={loaderStyleInner}></div>
     </div>
   );
@@ -50,10 +49,10 @@ const spinnerStyle = (white) => ({
     : "white transparent white transparent",
 });
 
-function Spinner({ white = false }) {
+function Spinner({ white = false , className }) {
   return (
     <div
-      className="animate-spin flex Loader justify-center"
+      className={`animate-spin flex Loader justify-center ${className}`}
       style={{padding: "2px"}}
     >
       <div className="spinner" style={spinnerStyle(white)}></div>

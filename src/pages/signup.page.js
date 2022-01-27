@@ -1,10 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
-import {FirebaseContext} from "../context/firebase";
-import cx from "classnames";
 import * as Route from "../constants/routes";
+
+import Loader, { Spinner } from "../components/loader";
+import { createUser, doesUsernameExist } from "../services/auth";
+import { useContext, useEffect, useState } from "react";
+
+import { FirebaseContext } from "../context/firebase";
 import { Link } from "react-router-dom";
-import { doesUsernameExist, createUser } from "../services/auth";
+import cx from "classnames";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const history = useNavigate();
@@ -15,10 +18,12 @@ function Signup() {
   const [fullname, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const usernameExists = await doesUsernameExist(username);
       if (usernameExists) {
         setError("Username already taken, pleas/e try another one");
@@ -32,6 +37,8 @@ function Signup() {
     } catch (e) {
       console.log(e);
       setError(e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -99,14 +106,18 @@ function Signup() {
             <button
               type="submit"
               className={cx(
-                "bg-blue-500 text-white w-full py-3 rounded font-bold px-4 rounded mb-2"
+                "flex place-content-center bg-blue-500 text-white w-full py-3 rounded font-bold px-4 rounded mb-2"
               )}
             >
-              Sign up
+              {loading ? (
+                <Spinner className="h-6 w-6" white={true} />
+              ) : (
+                "Sign up"
+              )}
             </button>
           </form>
         </div>
-        <div className="flex justfy-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
+        <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
           <p className="text-sm">
             Have an account?{" "}
             <Link to={Route.LOGIN_ROUTE} className="font-bold text-blue-medium">

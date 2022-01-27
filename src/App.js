@@ -33,11 +33,11 @@ function App({ user }) {
           <Route
             path={ROUTES.PROFILE}
             element={getProtectedRoute(user, <Profile />)}
-          ></Route>
+          />
           <Route
             path={ROUTES.DASHBOARD}
             element={getProtectedRoute(user, <Dashboard />)}
-          ></Route>
+          />
           <Route path={ROUTES.NO_PAGE_FOUND_ROUTE} element={<NoPageFound />} />
         </Routes>
       </Suspense>
