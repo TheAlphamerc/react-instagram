@@ -1,6 +1,6 @@
-import Timeline from './timeline';
-import Sidebar from './sidebar';
 import Header from './header';
-import UserAvtar from './user-avatar';
+import Sidebar from './sidebar';
+import Timeline from './timeline';
+import UserAvatar from './user-avatar';
 
-export {Timeline,Sidebar,Header,UserAvtar};
+export {Timeline,Sidebar,Header,UserAvatar};

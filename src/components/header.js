@@ -1,16 +1,18 @@
-import { useState } from "react";
 import * as ROUTES from "../constants/routes";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { signOut, getAuth } from "firebase/auth";
+
 import {
   faHome,
   faPlus,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import CreatePostModelComponent from "../components/create-post/create-post-model-component";
+import { getAuth, signOut } from "firebase/auth";
 
-function Header({ user }) {
+import CreatePostModelComponent from "../components/create-post/create-post-model-component";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+
+function Header({ user, createPostRef }) {
   const isLogout = user && Object.keys(user).length === 0;
   const [createPostModel, setCreatePostModel] = useState(false);
 
@@ -45,10 +47,10 @@ function Header({ user }) {
                   <FontAwesomeIcon className="" icon={faHome} />
                 </Link>
                 <div
+                  ref={createPostRef}
                   className="flex items-center justify-center border-2 border-black rounded h-6 w-6 cursor-pointer mr-4 select-none"
                   onClick={() => {
                     setCreatePostModel(true);
-                    console.log("create post", createPostModel);
                   }}
                 >
                   <FontAwesomeIcon icon={faPlus} />

@@ -1,13 +1,14 @@
-import { Modal } from "../model/model";
-import cx from "classnames";
-import { UserAvtar } from "../index";
-import { useState, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import FirebaseStorageService from "../../services/firebase-storage";
+import { PostConverter, PostModel, Profile } from "../../models/index";
+import { useRef, useState } from "react";
+
 import FeedService from "../../services/feed";
-import { PostModel, PostConverter, Profile } from "../../models/index";
+import FirebaseStorageService from "../../services/firebase-storage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "../model/model";
 import { Spinner } from "../loader";
+import { UserAvatar } from "../index";
+import cx from "classnames";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
   const pictureRef = useRef();
@@ -16,7 +17,7 @@ function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState();
 
-  const IsSubimittable = picture != null && picture != undefined;
+  const IsSubmittable = picture != null && picture != undefined;
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -42,19 +43,16 @@ function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
           );
         } catch (error) {
           setLoading(false);
-          console.error("Error - 3", error);
         }
         setLoading(false);
         setActive(false);
-        console.log("Post created Sucesss");
       });
     } catch (error) {
       setLoading(false);
-      console.error("Error in post creat", error);
     }
   };
 
-  const uploadFile = async (onFileUpload = (attchmentUrl) => {}) => {
+  const uploadFile = async (onFileUpload = (url) => {}) => {
     const pathname = `${user.username}/post-image}`;
     // const file = pictureRef.current.files[0];
     try {
@@ -95,12 +93,12 @@ function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
       <div className="">
         <div className="flex flex-row justify-between p-2 px-4 border-b  ">
           <p className="">Create Post</p>
-          {IsSubimittable && !loading ? (
+          {IsSubmittable && !loading ? (
             <button
-              disabled={!IsSubimittable}
+              disabled={!IsSubmittable}
               onClick={onSubmit}
               className={cx("text-sm font-semibold text-blue-400", {
-                "bg-gray-100": !IsSubimittable,
+                "bg-gray-100": !IsSubmittable,
               })}
             >
               Share
@@ -171,7 +169,7 @@ function ChooseImage({ pictureRef, setFile, setPicture }) {
       }}
       className="flex flex-col justify-center place-items-center p-24"
     >
-      <Imagecon />
+      <ImageIcon />
 
       <p className="text-lg m-8">Drag photos and videos here</p>
       <button
@@ -219,7 +217,7 @@ function Editor({ user, picture, setPicture, setCaption, caption }) {
       {
         <div className="col-span-2 flex flex-col border-l p-4 space-y-2 max-h-96">
           <div className="flex items-center space-x-2">
-            <UserAvtar
+            <UserAvatar
               className=" h-8 w-8 text-sm"
               picture={user.avatar}
               fullname={user.fullname}
@@ -241,7 +239,7 @@ function Editor({ user, picture, setPicture, setCaption, caption }) {
   );
 }
 
-function Imagecon() {
+function ImageIcon() {
   return (
     <svg
       aria-label="Icon to represent media such as images or videos"

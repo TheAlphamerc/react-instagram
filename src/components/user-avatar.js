@@ -1,6 +1,6 @@
 import cx from "classnames";
 
-function UserAvtar({ avatar, fullname, className }) {
+function UserAvatar({ avatar, fullname, className }) {
   return (
     <div
       className={cx(
@@ -18,4 +18,4 @@ function UserAvtar({ avatar, fullname, className }) {
   );
 }
 
-export default UserAvtar;
+export default UserAvatar;

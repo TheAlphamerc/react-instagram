@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { UserAvtar } from "..";
+import { UserAvatar } from "..";
 function HeaderComponent({ user }) {
   return (
     <div className="flex border-b border-gray-300 h-4 px-2 py-6">
       <Link to={`/p/${user.username}`} className="flex items-center space-x-2">
-        <UserAvtar
+        <UserAvatar
           className="h-8 w-8 text-xs"
           avatar={user.avatar}
           fullname={user.fullname}

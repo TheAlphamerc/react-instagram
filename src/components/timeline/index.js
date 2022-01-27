@@ -1,9 +1,12 @@
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import PostComponent from "../post";
-import UserFeeds from "../../hook/use-feed";
 
-function Timeline({ user }) {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PostComponent from "../post";
+import Skeleton from "react-loading-skeleton";
+import UserFeeds from "../../hook/use-feed";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
+
+function Timeline({ user,createPostRef }) {
   const feed = UserFeeds(user);
 
   return (
@@ -19,10 +22,26 @@ function Timeline({ user }) {
           </div>
         </div>
       ) : null}
-      {!feed ||
-        (feed.length === 0 && <p className="text-center">No Post Yet</p>)}
+      {!feed || <NoPostComponent feed={feed} createPostRef={createPostRef}/>}
     </div>
   );
 }
 
+function NoPostComponent({ feed,createPostRef }) {
+  return (
+    feed.length === 0 && (
+      <div className="flex flex-col mt-32 items-center text-center justify-center">
+        <FontAwesomeIcon
+          size="2x"
+          className="h-44 cursor-pointer"
+          icon={faCamera}
+          onClick={()=>{
+            createPostRef.current.click();
+          }}
+        />
+        <p className="text-3xl text-gray-600">No Posts Yet</p>
+      </div>
+    )
+  );
+}
 export default Timeline;

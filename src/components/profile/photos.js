@@ -1,12 +1,14 @@
-import Skeleton from "react-loading-skeleton";
-import { useState } from "react";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart as emptyHeart,
   faCommentDots,
 } from "@fortawesome/free-regular-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Skeleton from "react-loading-skeleton";
 import cx from "classnames";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 function Photos({ photos, user }) {
   return (
@@ -21,7 +23,16 @@ function Photos({ photos, user }) {
         ) : null}
       </div>
       {!photos ||
-        (photos.length === 0 && <p className="text-center">No Post Yet</p>)}
+        (photos.length === 0 && (
+          <div className="flex flex-col mt-20 items-center text-center justify-center">
+            <FontAwesomeIcon
+              size="2x"
+              className="h-44 cursor-pointer"
+              icon={faCamera}
+            />
+            <p className="text-3xl text-gray-600">No Posts Yet</p>
+          </div>
+        ))}
     </div>
   );
 }
