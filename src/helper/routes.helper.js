@@ -1,10 +1,11 @@
-import { Navigate } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
+
+import { Navigate } from "react-router-dom";
 import { lazy } from "react";
 const Login = lazy(() => import("../pages/login.page"));
 const Profile = lazy(() => import("../pages/profile.page"));
 const Signup = lazy(() => import("../pages/signup.page"));
-const Dashbaord = lazy(() => import("../pages/dashboard"));
+const Dashboard = lazy(() => import("../pages/dashboard"));
 const NoPageFound = lazy(() => import("../pages/no-page-found.page"));
 
 function getProtectedRoute(user, element) {
@@ -19,5 +20,5 @@ function getLoggedInRoute(user, element) {
   }
   return element;
 }
-export { Profile, Login, Signup, Dashbaord, NoPageFound };
+export { Profile, Login, Signup, Dashboard, NoPageFound };
 export { getProtectedRoute, getLoggedInRoute ,ROUTES as RouteHelper};

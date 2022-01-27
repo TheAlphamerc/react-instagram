@@ -1,24 +1,26 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Suspense } from "react";
 import * as ROUTES from "./constants/routes";
-import { withFirebase } from "./context/firebase";
-import { withSessionProvider } from "./context/session";
-import { withSession } from "./context/session";
-import Loder from "./components/loader";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
-  getProtectedRoute,
-  getLoggedInRoute,
-  Profile,
+  Dashboard,
   Login,
-  Signup,
-  Dashbaord,
   NoPageFound,
+  Profile,
+  Signup,
+  getLoggedInRoute,
+  getProtectedRoute,
 } from "./helper/routes.helper";
+
+import Loader from "./components/loader";
+import { Suspense } from "react";
+import { withFirebase } from "./context/firebase";
+import { withSession } from "./context/session";
+import { withSessionProvider } from "./context/session";
 
 function App({ user }) {
   return (
     <BrowserRouter>
-      <Suspense fallback={<Loder />}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route
             path={ROUTES.LOGIN_ROUTE}
@@ -34,7 +36,7 @@ function App({ user }) {
           ></Route>
           <Route
             path={ROUTES.DASHBOARD}
-            element={getProtectedRoute(user, <Dashbaord />)}
+            element={getProtectedRoute(user, <Dashboard />)}
           ></Route>
           <Route path={ROUTES.NO_PAGE_FOUND_ROUTE} element={<NoPageFound />} />
         </Routes>

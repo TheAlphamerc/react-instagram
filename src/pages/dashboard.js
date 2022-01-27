@@ -1,10 +1,11 @@
-import { useEffect } from "react";
 // import { seedDatabase } from "../seed";
 // import {db,collection,setDoc,doc} from "../lib/firebase";
 import * as Components from "../components/index";
+
+import { useEffect } from "react";
 import { withSession } from "../context/session";
 
-function Dashbaord({ user }) {
+function Dashboard({ user }) {
   useEffect(() => {
     try {
       // seedDatabase(db,collection,doc,setDoc);
@@ -25,4 +26,4 @@ function Dashbaord({ user }) {
   );
 }
 
-export default withSession(Dashbaord);
+export default withSession(Dashboard);
