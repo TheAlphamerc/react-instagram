@@ -1,19 +1,41 @@
-import { CommentModel, CommentConverter } from ".";
+// import { CommentModel, CommentConverter } from ".";
+import { identity } from "./identity";
 import { PostProfileConverter, Profile } from "./profile";
 
+interface Prop {
+  id: string;
+  caption?: string;
+  attachments?: string[];
+  location?: string;
+  likes?: string[];
+  comments?: PostModel[];
+  createdAt: any;
+  createdBy: Profile;
+}
 class PostModel {
   id: string;
   caption: string;
-  attachments: string[];
-  likes: string[];
-  comments:CommentModel[];
+  attachments: string[] | undefined;
+  location: string | undefined;
+  likes: string[] | undefined;
+  comments: PostModel[] | undefined;
   createdAt: any;
   createdBy: Profile;
-  
-  constructor(id: string, caption: string, attachments: string[], likes: string[],comments: CommentModel[], createdBy: Profile, createdAt: any) {
+
+  constructor({
+    id,
+    caption = "",
+    attachments,
+    location,
+    createdBy,
+    createdAt,
+    likes,
+    comments,
+  }: Prop) {
     this.id = id;
     this.caption = caption;
     this.attachments = attachments;
+    this.location = location;
     this.comments = comments;
     this.likes = likes;
     this.createdAt = createdAt;
@@ -25,26 +47,52 @@ class PostModel {
 const PostConverter = {
   toFirestore: (post: any) => {
     return {
-      id: post.id,
-      caption: post.caption,
-      attachments: post.attachments,
-      likes: post.likes,
-      comments: Array.isArray(post.comments) ?  post.comments.map((com:any)=> CommentConverter.toFirestore(com)) : [],
+      id: identity(post.id),
+      caption: identity(post.caption),
+      attachments: identity(post.attachments),
+      likes: identity(post.likes),
+      comments: Array.isArray(post.comments)
+        ? post.comments.map((com: any) => PostConverter.toFirestore(com))
+        : [],
       createdBy: PostProfileConverter.toFirestore(post.createdBy),
       createdAt: post.createdAt,
     };
   },
   fromFirestore: (snapshot: any, options: any) => {
     const data = snapshot.data(options);
-    return new PostModel(
-      snapshot.id,
-      data.caption,
-      data.attachments,
-      data.likes,
-      Array.isArray(data.comments) ? data.comments.map((com:any)=> CommentConverter.fromFirestore(com)) : [],
-      PostProfileConverter.fromFirestore(data.createdBy,),
-      data.createdAt
-    );
+    return new PostModel({
+      id: snapshot.id,
+      caption: data.caption,
+      attachments: data.attachments,
+      location: data.location,
+      likes: data.likes,
+      comments: Array.isArray(data.comments)
+        ? data.comments.map((com: any) => CommentConverter.fromFirestore(com))
+        : [],
+      createdBy: PostProfileConverter.fromFirestore(data.createdBy),
+      createdAt: data.createdAt,
+    });
+  },
+};
+
+const CommentConverter = {
+  toFirestore: (post: any) => {
+    return {
+      id: identity(post.id),
+      caption: identity(post.caption),
+      likes: identity(post.likes),
+      createdBy: PostProfileConverter.toFirestore(post.createdBy),
+      createdAt: post.createdAt,
+    };
+  },
+  fromFirestore: (comment: any) => {
+    return new PostModel({
+      id: comment.id,
+      caption: comment.caption,
+      likes: comment.likes,
+      createdBy: PostProfileConverter.fromFirestore(comment.createdBy),
+      createdAt: comment.createdAt,
+    });
   },
 };
 

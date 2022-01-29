@@ -14,7 +14,7 @@ function ProfileHeader({
   setFollowCount,
 }) {
   const [isFollowingProfile, setIsFollowingProfile] = useState(
-    profile.followers.includes(loggedInUser.userId)
+    profile.followers?.includes(loggedInUser.userId)
   );
   const [isMyProfile, setIsMyProfile] = useState(
     profile.username === loggedInUser.username
@@ -69,8 +69,8 @@ function ProfileHeader({
           </p>
           <p className="mr-10">
             <span className="font-medium">
-              {profile.following.length}{" "}
-              {profile.following.length === 1 ? " following" : " following"}
+              {profile.following?.length ?? 0}{" "}
+              {profile.following?.length === 1 ? " following" : " following"}
             </span>
           </p>
         </div>

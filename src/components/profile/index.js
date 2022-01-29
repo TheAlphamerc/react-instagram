@@ -10,7 +10,7 @@ function ProfileComponent({ profile, loggedInUser }) {
 
   const initialState = {
     postCollection: {},
-    followerCount:profile.followers.length,
+    followerCount:profile.followers?.length ?? 0,
   };
 
   const [{ postCollection, followerCount }, dispatch] = useReducer(
@@ -24,7 +24,7 @@ function ProfileComponent({ profile, loggedInUser }) {
       );
        dispatch({
         postCollection: postCollection,
-        followerCount: profile.followers.length,
+        followerCount: profile.followers?.length ?? 0,
       });
     }
     if (profile) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CommentModel, Profile } from "../../../../models/index";
+import { PostModel, Profile } from "../../../../models/index";
 
 function AddCommentComponent({
   user,
@@ -12,18 +12,17 @@ function AddCommentComponent({
     e.preventDefault();
 
     if (caption.length >= 1) {
-      const comment = new CommentModel(
-        "",
-        caption,
-        [],
-        Profile.postUser(
+      const comment = new PostModel({
+        id: "",
+        caption: caption,
+        createdBy: Profile.postUser(
           user.userId,
           user.fullname,
           user.username,
-          user.avatar ?? "",
-          ),
-          Date.now()
-      );
+          user.avatar ?? ""
+        ),
+        createdAt: Date.now(),
+      });
       onNewCommentAdd(comment);
       setCaption("");
     }

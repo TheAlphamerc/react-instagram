@@ -16,6 +16,7 @@ function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
   const [caption, setCaption] = useState("");
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState();
+  const [location, setLocation] = useState("");
 
   const IsSubmittable = picture != null && picture != undefined;
 
@@ -26,20 +27,20 @@ function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
       await uploadFile(async (attachmentUrl) => {
         try {
           await FeedService.createPost(
-            new PostModel(
-              "",
-              caption,
-              [attachmentUrl],
-              [],
-              [],
-              Profile.postUser(
+            new PostModel({
+              userId: "",
+              caption: caption,
+              attachments: [attachmentUrl],
+              likes: [],
+              comments: [],
+              createdBy: Profile.postUser(
                 user.userId,
                 user.fullname,
                 user.username,
                 user.avatar
               ),
-              Date.now()
-            )
+              createdAt: Date.now(),
+            })
           );
         } catch (error) {
           setLoading(false);
@@ -107,7 +108,7 @@ function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
             <Spinner />
           ) : null}
         </div>
-        <div className="h-full max-h-96 flex flex-col">
+        <div className="h-full flex flex-col">
           <input
             type="file"
             ref={pictureRef}
@@ -129,6 +130,7 @@ function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
               caption={caption}
               setCaption={setCaption}
               setPicture={setPicture}
+              setLocation={setLocation}
             />
           ) : (
             <ChooseImage
@@ -185,7 +187,14 @@ function ChooseImage({ pictureRef, setFile, setPicture }) {
   );
 }
 
-function Editor({ user, picture, setPicture, setCaption, caption }) {
+function Editor({
+  user,
+  picture,
+  setPicture,
+  setCaption,
+  caption,
+  setLocation,
+}) {
   const endRef = useRef();
   let rows = caption.split("\n").length;
   rows = rows > 3 ? (rows > 5 ? 5 : rows) : 3;
@@ -193,9 +202,9 @@ function Editor({ user, picture, setPicture, setCaption, caption }) {
     <div className="grid grid-cols-5 h-full  ">
       {/* Image */}
       {
-        <div className="col-span-3 flex  bg-gray-100  items-center">
-          <div className="relative w-full flex place-content-center  items-center">
-            <img className="" src={picture} alt="" />
+        <div className="col-span-3 flex aspect-square  bg-gray-100  items-center">
+          <div className="relative w-full flex place-content-center h-full">
+            <img className="object-cover" src={picture} alt="" />
 
             <div
               onClick={() => {
@@ -215,7 +224,7 @@ function Editor({ user, picture, setPicture, setCaption, caption }) {
 
       {/* Editor */}
       {
-        <div className="col-span-2 flex flex-col border-l p-4 space-y-2 max-h-96">
+        <div className="col-span-2 flex flex-col border-l p-4 space-y-2 bg-white">
           <div className="flex items-center space-x-2">
             <UserAvatar
               className=" h-8 w-8 text-sm"
@@ -233,6 +242,17 @@ function Editor({ user, picture, setPicture, setCaption, caption }) {
             rows={6}
             placeholder="Enter description here.."
           />
+
+          <label className="flex flex-row border p-2 rounded place-items-center">
+            <input
+              className="flex-grow outline-none"
+              name="creation-location-input"
+              placeholder="Add Location"
+              type="text"
+              onChange={(e) => setLocation(e.target.value)}
+            />
+            <LocationIcon />
+          </label>
         </div>
       }
     </div>
@@ -262,6 +282,23 @@ function ImageIcon() {
         d="M78.2 41.6L61.3 30.5c-2.1-1.4-4.9-.8-6.2 1.3-.4.7-.7 1.4-.7 2.2l-1.2 20.1c-.1 2.5 1.7 4.6 4.2 4.8h.3c.7 0 1.4-.2 2-.5l18-9c2.2-1.1 3.1-3.8 2-6-.4-.7-.9-1.3-1.5-1.8zm-1.4 6l-18 9c-.4.2-.8.3-1.3.3-.4 0-.9-.2-1.2-.4-.7-.5-1.2-1.3-1.1-2.2l1.2-20.1c.1-.9.6-1.7 1.4-2.1.8-.4 1.7-.3 2.5.1L77 43.3c1.2.8 1.5 2.3.7 3.4-.2.4-.5.7-.9.9z"
         fill="currentColor"
       ></path>
+    </svg>
+  );
+}
+
+function LocationIcon() {
+  return (
+    <svg
+      className="flex-none"
+      aria-label="Add Location"
+      color="#8e8e8e"
+      fill="#8e8e8e"
+      height="16"
+      role="img"
+      viewBox="0 0 24 24"
+      width="16"
+    >
+      <path d="M12.053 8.105a1.604 1.604 0 101.604 1.604 1.604 1.604 0 00-1.604-1.604zm0-7.105a8.684 8.684 0 00-8.708 8.66c0 5.699 6.14 11.495 8.108 13.123a.939.939 0 001.2 0c1.969-1.628 8.109-7.424 8.109-13.123A8.684 8.684 0 0012.053 1zm0 19.662C9.29 18.198 5.345 13.645 5.345 9.66a6.709 6.709 0 0113.417 0c0 3.985-3.944 8.538-6.709 11.002z"></path>
     </svg>
   );
 }
