@@ -8,7 +8,7 @@ function UsePost(): PostModel | undefined {
   const [updatePost, setUpdatePost] = useState<PostModel | undefined>(
     undefined
   );
-//   const { db } = useContext<any>(FirebaseContext);
+  //   const { db } = useContext<any>(FirebaseContext);
   useEffect(() => {
     console.log("Listen for post change");
     try {
@@ -16,17 +16,16 @@ function UsePost(): PostModel | undefined {
         collection(db, "posts").withConverter(PostConverter),
         (querySnapshot) => {
           const list = querySnapshot.docs.map((doc) => doc.data());
-          
+
           querySnapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
-              console.log("Added List: ",list.length);
-            //   setUpdatePost(list[0]);
+              console.log("Added List: ", list.length);
             }
             if (change.type === "modified") {
-                console.log("Modified List: ",list.length);
+              console.log("Modified List: ", list.length);
             }
             if (change.type === "removed") {
-                console.log("Removed List: ",list.length);
+              console.log("Removed List: ", list.length);
             }
           });
         },

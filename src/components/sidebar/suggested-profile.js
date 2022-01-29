@@ -4,7 +4,7 @@ import ProfileService from "../../services/profile";
 
 function SuggestedProfile({ user, loggedInUserId }) {
   const [followed, setFollowed] = useState(
-    user.followers.includes(loggedInUserId)
+    user.followers?.includes(loggedInUserId) ?? false,
   );
 
   async function handleFollowUser() {

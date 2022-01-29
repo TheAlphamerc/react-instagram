@@ -1,6 +1,6 @@
 import { db } from "../lib/firebase";
 import {
-    collection, getDocs, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where, deleteDoc,setDoc
+    collection, getDocs, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where, deleteDoc,setDoc, orderBy, startAfter
 } from "firebase/firestore";
 
 
@@ -9,13 +9,15 @@ import { PostConverter, PostModel } from "../models/post";
 
 class FeedService {
     // Get user following posts
-    static async getTimeLineFeed(following: string[]): Promise<PostModel[]> {
+    static async getTimeLineFeed(following: string[],after:String, postLimit:number): Promise<PostModel[]> {
         try {
             var fol = following.slice(0, 9);
             const querySnapshot = query(
                 collection(db, "posts").withConverter(PostConverter),
                 where("createdBy.userId", "in", fol),
-                limit(10)
+                orderBy("createdAt", "desc"),
+                startAfter(after),
+                limit(postLimit)
             );
             const docs = await getDocs(querySnapshot)
             if (docs.docs.length === 0) {
