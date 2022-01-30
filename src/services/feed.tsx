@@ -1,4 +1,5 @@
 import { db } from "../lib/firebase";
+import { Profile, ProfileConverter } from "../models/index";
 import {
     collection, getDocs, limit, updateDoc, arrayUnion, arrayRemove, query, doc, where, deleteDoc,setDoc, orderBy, startAfter
 } from "firebase/firestore";
@@ -6,6 +7,7 @@ import {
 
 import { CommentConverter, CommentModel } from "../models/index";
 import { PostConverter, PostModel } from "../models/post";
+import { PostProfileConverter } from "../models/profile";
 
 class FeedService {
     // Get user following posts
@@ -60,7 +62,7 @@ class FeedService {
         try {
             const map = CommentConverter.toFirestore(comment);
             await updateDoc(doc(collection(db, "posts").withConverter(PostConverter), postId), {
-                comments: arrayUnion()
+                comments: arrayUnion(map)
             });
         } catch (e) {
             console.log(e);
@@ -103,6 +105,19 @@ class FeedService {
             console.log("Post saving start");
             const ref = doc(collection(db, "posts").withConverter(PostConverter));
             await setDoc(ref, post);
+        } catch (e) {
+            console.log(e);
+            throw (e);
+        }
+    }
+
+    // Report a post
+    static async reportPost(post: PostModel, Profile: Profile): Promise<void> {
+        try {
+            const map = PostProfileConverter.toFirestore(Profile);
+            await updateDoc(doc(collection(db, "posts"), post.id).withConverter(PostConverter), {
+                reportedBy: arrayUnion(map)
+            });
         } catch (e) {
             console.log(e);
             throw (e);

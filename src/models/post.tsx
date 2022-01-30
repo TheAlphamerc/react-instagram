@@ -1,4 +1,5 @@
 // import { CommentModel, CommentConverter } from ".";
+import { ProfileConverter } from ".";
 import { identity } from "./identity";
 import { PostProfileConverter, Profile } from "./profile";
 
@@ -11,6 +12,7 @@ interface Prop {
   comments?: PostModel[];
   createdAt: any;
   createdBy: Profile;
+  reportedBy?: Profile[];
 }
 class PostModel {
   id: string;
@@ -21,7 +23,7 @@ class PostModel {
   comments: PostModel[] | undefined;
   createdAt: any;
   createdBy: Profile;
-
+  reportedBy: Profile[] | undefined;
   constructor({
     id,
     caption = "",
@@ -31,6 +33,7 @@ class PostModel {
     createdAt,
     likes,
     comments,
+    reportedBy,
   }: Prop) {
     this.id = id;
     this.caption = caption;
@@ -40,6 +43,7 @@ class PostModel {
     this.likes = likes;
     this.createdAt = createdAt;
     this.createdBy = createdBy;
+    this.reportedBy = reportedBy;
   }
 }
 
@@ -56,6 +60,9 @@ const PostConverter = {
         : [],
       createdBy: PostProfileConverter.toFirestore(post.createdBy),
       createdAt: post.createdAt,
+      reportedBy: Array.isArray(post.reportedBy)
+        ? post.reportedBy.map((user: any) => ProfileConverter.toFirestore(user))
+        : [],
     };
   },
   fromFirestore: (snapshot: any, options: any) => {
@@ -71,6 +78,11 @@ const PostConverter = {
         : [],
       createdBy: PostProfileConverter.fromFirestore(data.createdBy),
       createdAt: data.createdAt,
+      reportedBy: Array.isArray(data.comments)
+        ? data.comments.map((com: any) =>
+            PostProfileConverter.fromFirestore(com)
+          )
+        : [],
     });
   },
 };
