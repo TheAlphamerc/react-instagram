@@ -37,15 +37,14 @@ function Login() {
   return (
     <Suspense fallback={<Loader />}>
       <div className="container mx-auto flex max-w-screen-md h-screen">
-        <div className="flex w-3/5  m-auto ">
+        <div className="flex w-3/5  m-auto hidden sm:inline">
           <img
             className="aspect-[9/12.31]"
             src="/images/iphone-with-profile.jpg"
             alt="iPhone"
           />
         </div>
-
-        <div className="flex flex-col w-2/5 place-content-center ">
+        <div className="flex flex-col w-3/5 place-content-center mx-auto">
           <div className="bg-white p-4 border border-gray-primary mb-4 rounded">
             <h1 className="flex justify-center place-content-center  w-full">
               <img

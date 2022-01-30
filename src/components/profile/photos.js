@@ -12,8 +12,8 @@ import { useState } from "react";
 
 function Photos({ photos, user }) {
   return (
-    <div className="h-16 border-t border-gray-300 mt-12 pt-4">
-      <div className="grid grid-cols-3 gap-8 mt-4 mb-12">
+    <div className="sm:border-t sm:mt-12  border-gray-300  pt-4">
+      <div className="grid grid-cols-3 gap-2 sm:gap-8 mt-4 mb-12">
         {!photos ? (
           <Skeleton height={100} width={100} count={3} />
         ) : photos.length > 0 ? (
@@ -43,9 +43,9 @@ function Photo({ post, user }) {
     <div className="relative group">
       <div className="aspect-square ">
         <img
-          className="aspect-square object-cover h-full"
+          className="aspect-square object-cover h-full w-full border"
           src={post.attachments[0]}
-          alt={post.caption}
+          alt={'Image not Available'}
         />
       </div>
       <div

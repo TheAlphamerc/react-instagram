@@ -5,7 +5,7 @@ import PostFooterComponent from "./footer";
 
 function PostComponent({ user, post }) {
   return (
-    <div className="rounded bg-white">
+    <div className="rounded bg-white  sm:mx-20 md:mx-0">
       <HeaderComponent user={post.createdBy} />
       <PostAttachmentComponent attachments={post.attachments} />
       <PostFooterComponent user={user} post={post} />

@@ -10,7 +10,7 @@ function ProfileComponent({ profile, loggedInUser }) {
 
   const initialState = {
     postCollection: {},
-    followerCount:profile.followers?.length ?? 0,
+    followerCount: profile.followers?.length ?? 0,
   };
 
   const [{ postCollection, followerCount }, dispatch] = useReducer(
@@ -22,7 +22,7 @@ function ProfileComponent({ profile, loggedInUser }) {
       const postCollection = await FeedService.getUserPostsByUsername(
         profile.username
       );
-       dispatch({
+      dispatch({
         postCollection: postCollection,
         followerCount: profile.followers?.length ?? 0,
       });
@@ -41,6 +41,7 @@ function ProfileComponent({ profile, loggedInUser }) {
         followerCount={followerCount}
         setFollowCount={dispatch}
       />
+      
       <Photos photos={postCollection} user={loggedInUser} />
     </div>
   );
