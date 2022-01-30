@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { SessionContext } from "../context/session";
 import { PostModel } from "../models/post";
 import FeedService from "../services/feed";
 import UsePost from "./use-post";
 
-function UserFeeds(user: any): {
+function UserFeeds(): {
   feed: PostModel[] | undefined;
   isLoading: boolean;
 } {
@@ -14,6 +15,8 @@ function UserFeeds(user: any): {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasMoreData, setHasMoreData] = useState<boolean>(true);
   const pageLimit = 10;
+
+  const user = useContext<any>(SessionContext);
 
   /// Fetch feeds
   useEffect(() => {

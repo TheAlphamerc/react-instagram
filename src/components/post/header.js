@@ -37,7 +37,7 @@ function HeaderComponent({ user, post }) {
           await ProfileService.updateMyFollowingUser(
             user.userId,
             post.createdBy.userId,
-            true
+            false
           );
           console.log("user followed");
           break;

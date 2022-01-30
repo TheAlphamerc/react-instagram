@@ -4,10 +4,9 @@ import PostComponent from "../post";
 import Skeleton from "react-loading-skeleton";
 import UserFeeds from "../../hook/use-feed";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import { withFeed, withFeedProvider } from "../../context/feed";
 
-function Timeline({ user, createPostRef }) {
-  const { feed, isLoading } = UserFeeds(user);
-
+function Timeline({createPostRef, feed, isLoading }) {
   return (
     <div className="col-span-2 overflow-y-scroll">
       {isLoading ? (
@@ -43,4 +42,4 @@ function NoPostComponent({ feed, createPostRef }) {
     )
   );
 }
-export default Timeline;
+export default withFeedProvider(withFeed(Timeline));

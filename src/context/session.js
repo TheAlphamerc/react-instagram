@@ -17,7 +17,7 @@ export const withSessionProvider = (Component) => (props) => {
 export const withSession = (Component) => (props) => {
   return (
     <SessionContext.Consumer>
-      {user => <Component user={user} {...props} />}
+      {(user) => <Component user={user} {...props} />}
     </SessionContext.Consumer>
   );
 };
