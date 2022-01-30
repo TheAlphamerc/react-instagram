@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "../model/model";
+import { Modal } from "./model";
 import cx from "classnames";
 
 interface Prop {

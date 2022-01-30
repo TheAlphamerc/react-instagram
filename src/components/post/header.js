@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PostMenuComponent, {
   Action,
   ActionLevel,
-} from "./menu-action.component";
+} from "../model/menu-action.component";
 import FeedService from "../../services/feed";
 
 function HeaderComponent({ user, post }) {
