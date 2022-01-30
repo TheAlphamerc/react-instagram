@@ -9,9 +9,12 @@ import PostMenuComponent, {
   ActionLevel,
 } from "../model/menu-action.component";
 import FeedService from "../../services/feed";
+import ProfileService from "../../services/profile";
 
 function HeaderComponent({ user, post }) {
   const [active, setActive] = useState(false);
+  const isMyPost = post.createdBy.userId === user.userId ?? false;
+
   const onAction = async (actionType) => {
     try {
       switch (actionType) {
@@ -21,6 +24,22 @@ function HeaderComponent({ user, post }) {
         case "report":
           await FeedService.reportPost(post, user);
           console.log("Reported");
+          break;
+        case "Unfollow":
+          await ProfileService.updateMyFollowingUser(
+            user.userId,
+            post.createdBy.userId,
+            true
+          );
+          console.log("user unfollowed");
+          break;
+        case "follow":
+          await ProfileService.updateMyFollowingUser(
+            user.userId,
+            post.createdBy.userId,
+            true
+          );
+          console.log("user followed");
           break;
         default:
           break;
@@ -54,7 +73,7 @@ function HeaderComponent({ user, post }) {
           active={active}
           setActive={setActive}
           actions={[
-            post.createdBy.userId === user.userId
+            isMyPost
               ? new Action(
                   "Delete",
                   () => onAction("delete"),
@@ -63,9 +82,21 @@ function HeaderComponent({ user, post }) {
               : new Action(
                   "Report",
                   () => onAction("report"),
+                  ActionLevel.alert
+                ),
+            user.following.includes(post.createdBy.userId)
+              ? new Action(
+                  "Unfollow",
+                  () => onAction("Unfollow"),
+                  ActionLevel.alert
+                )
+              : isMyPost
+              ? null
+              : new Action(
+                  "Follow",
+                  () => onAction("follow"),
                   ActionLevel.primary
                 ),
-
             new Action("Cancel", () => {}),
           ]}
         />

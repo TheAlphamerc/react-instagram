@@ -51,13 +51,16 @@ function ActionButton({
   action: Action;
   setActive: (_: boolean) => {};
 }) {
+  if(action == null || action === undefined){
+    return null;
+  }
   return (
     <button
       onClick={() => {
         action.action();
         setActive(false);
       }}
-      className={cx("  text-lg p-2 rounded hover:bg-gray-100", {
+      className={cx("p-2 rounded hover:bg-gray-100", {
         "text-gray-600": action.actionLevel === ActionLevel.default,
         "text-blue-500": action.actionLevel === ActionLevel.primary,
         "text-red-500": action.actionLevel === ActionLevel.alert,
