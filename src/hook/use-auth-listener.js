@@ -20,7 +20,7 @@ function UseAuthListener() {
         // User is signed out
         localStorage.removeItem("authUser");
         setUser(null);
-        console.log("User Deleted");
+        console.log("User Signed Out");
       }
     });
     return () => listener();
