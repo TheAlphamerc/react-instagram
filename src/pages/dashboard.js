@@ -20,9 +20,9 @@ function Dashboard({ user }) {
 
   return (
     <div className="bg-gray-100 space-y-16 overscroll-none ">
-      <Components.Header user={user} createPostRef={createPostRef}/>
+      <Components.Header user={user} createPostRef={createPostRef} />
       <div className="grid lg:grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg  overscroll-none">
-        <Components.Timeline user={user} createPostRef={createPostRef}/>
+        <Components.Timeline user={user} createPostRef={createPostRef} />
         <Components.Sidebar user={user} />
       </div>
     </div>

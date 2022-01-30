@@ -7,6 +7,8 @@ const Profile = lazy(() => import("../pages/profile.page"));
 const Signup = lazy(() => import("../pages/signup.page"));
 const Dashboard = lazy(() => import("../pages/dashboard"));
 const NoPageFound = lazy(() => import("../pages/no-page-found.page"));
+const AccountSettings = lazy(() => import("../pages/settings/account-settings.page"))
+const EditProfile = lazy(() => import("../pages/settings/edit-profile.page"));
 
 function getProtectedRoute(user, element) {
   if (!(user && Object.keys(user).length === 0)) {
@@ -20,5 +22,5 @@ function getLoggedInRoute(user, element) {
   }
   return element;
 }
-export { Profile, Login, Signup, Dashboard, NoPageFound };
+export { Profile, Login, Signup, Dashboard, NoPageFound ,AccountSettings,EditProfile};
 export { getProtectedRoute, getLoggedInRoute ,ROUTES as RouteHelper};

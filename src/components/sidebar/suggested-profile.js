@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { UserAvatar } from "..";
 import ProfileService from "../../services/profile";
 
 function SuggestedProfile({ user, loggedInUserId }) {
   const [followed, setFollowed] = useState(
-    user.followers?.includes(loggedInUserId) ?? false,
+    user.followers?.includes(loggedInUserId) ?? false
   );
 
   async function handleFollowUser() {
     setFollowed(!followed);
 
-    await ProfileService.updateMyFollowingUser(loggedInUserId, user.userId, followed);
+    await ProfileService.updateMyFollowingUser(
+      loggedInUserId,
+      user.userId,
+      followed
+    );
   }
   // if(followed){
   //     return null;
@@ -20,18 +25,23 @@ function SuggestedProfile({ user, loggedInUserId }) {
     <div className="flex flex-row items-center align-items justify-between">
       <div className="flex items-center justify-between">
         {/* <img src={user.avatar} alt="" className="rounded-full w-8 flex mr-3" /> */}
-        <div className="h-8 w-8 rounded-full bg-gray-200  mr-3 text-sm  flex justify-center items-center font-semibold">
+        <div className="h-8 w-8 rounded-full bg-gray-200  mr-3  flex justify-center items-center ">
           {user.avatar != null ? (
             <img className="rounded-full" alt="A" src={user.avatar} />
           ) : user.fullname ? (
-            user.fullname.substring(0, 2).toUpperCase()
+            // user.fullname.substring(0, 2).toUpperCase()
+            <UserAvatar
+              avatar={user.avatar}
+              fullname={user.fullname}
+              className="w-8 h-8 text-xs font-semibold"
+            />
           ) : (
             ""
           )}
         </div>
 
         <Link to={`/p/${user.username}`}>
-          <p className="fon-bold text-sm flex mr-3">{user.fullname}</p>
+          <p className="font-semibold text-sm flex mr-3">{user.fullname}</p>
         </Link>
       </div>
 

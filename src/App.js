@@ -7,6 +7,8 @@ import {
   NoPageFound,
   Profile,
   Signup,
+  AccountSettings,
+  EditProfile,
   getLoggedInRoute,
   getProtectedRoute,
 } from "./helper/routes.helper";
@@ -38,6 +40,13 @@ function App({ user }) {
             path={ROUTES.DASHBOARD}
             element={getProtectedRoute(user, <Dashboard />)}
           />
+          <Route
+            path={ROUTES.ACCOUNT_SETTINGS_ROUTE}
+            element={getProtectedRoute(user, <AccountSettings />)}
+          >
+            <Route path={ROUTES.PROFILE_EDIT_ROUTE} element={<EditProfile />} />
+          </Route>
+
           <Route path={ROUTES.NO_PAGE_FOUND_ROUTE} element={<NoPageFound />} />
         </Routes>
       </Suspense>

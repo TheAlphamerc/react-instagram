@@ -11,6 +11,7 @@ import CreatePostModelComponent from "../components/create-post/create-post-mode
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { UserAvatar } from ".";
 
 function Header({ user, createPostRef }) {
   const isLogout = user && Object.keys(user).length === 0;
@@ -70,9 +71,11 @@ function Header({ user, createPostRef }) {
                 {!user.fullname ? null : (
                   <div className="flex items-center cursor-pointer">
                     <Link to={`/p/${user.username}`}>
-                      <div className="h-8 w-8 ml-4 font-bold flex items-center   place-content-center ring rounded-full bg-gray-300">
-                        {user.fullname.substring(0, 2).toUpperCase()}
-                      </div>
+                      <UserAvatar
+                        avatar={user.avatar}
+                        fullname={user.fullname}
+                        className="w-12 h-12 ml-4"
+                      />
                     </Link>
                   </div>
                 )}

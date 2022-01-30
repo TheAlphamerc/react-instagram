@@ -1,10 +1,8 @@
-import { dispatch, useDispatch, useReducer } from "react";
-import { useEffect, useState } from "react";
-
-import FeedService from "../../services/feed";
-import ProfileService from "../../services/profile";
-import Skeleton from "react-loading-skeleton";
+import { useState } from "react";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { UserAvatar } from "..";
+import { RouteHelper } from "../../helper/routes.helper";
+import ProfileService from "../../services/profile";
 
 function ProfileHeader({
   profile,
@@ -13,6 +11,7 @@ function ProfileHeader({
   followerCount,
   setFollowCount,
 }) {
+  const navigate = useNavigate();
   const [isFollowingProfile, setIsFollowingProfile] = useState(
     profile.followers?.includes(loggedInUser.userId)
   );
@@ -45,7 +44,7 @@ function ProfileHeader({
         </div>
         <div className="flex items-center justify-center flex-col col-span-2">
           <div className="container flex items-center">
-            <p className="text-2xl mr-4">{profile.username}</p>
+            <p className="text-3xl mr-4">{profile.username}</p>
             {!isMyProfile ? (
               <button
                 className="bg-blue-600 font-bold text-xs rounded text-white w-20 h-8"
@@ -59,7 +58,16 @@ function ProfileHeader({
               >
                 {isFollowingProfile ? "Following" : "Follow"}
               </button>
-            ) : null}
+            ) : (
+              <button
+                onClick={() => {
+                  navigate(RouteHelper.getProfileEditAccount());
+                }}
+                className="border  px-4 py-1 rounded  text-sm font-semibold border-gray-400"
+              >
+                Edit Profile
+              </button>
+            )}
           </div>
 
           <div className="container text-sm flex mt-4 hidden sm:inline-flex">
