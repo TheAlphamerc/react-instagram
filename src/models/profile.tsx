@@ -4,8 +4,10 @@ interface Prop {
   userId: string;
   fullname: string;
   username: string;
-  email?: string | null | undefined;
+  email?: string | null ;
   avatar?: string | null;
+  bio?: string | null;
+  website?: string | null;
   following?: String[] | null;
   followers?: String[] | null;
   createdAt?: any | null;
@@ -15,6 +17,8 @@ class Profile {
   fullname: string;
   username: string;
   email: String | null | undefined;
+  bio: string | null | undefined;
+  website: string | null | undefined;
   following: String[] | null | undefined;
   followers: String[] | null | undefined;
   createdAt: any | null | undefined;
@@ -25,6 +29,8 @@ class Profile {
     fullname,
     username,
     email,
+    website,
+    bio,
     avatar,
     following,
     followers,
@@ -34,6 +40,8 @@ class Profile {
     this.fullname = fullname;
     this.username = username;
     this.email = email;
+    this.website = website;
+    this.bio = bio;
     this.following = following;
     this.followers = followers;
     this.createdAt = createdAt;
@@ -68,6 +76,8 @@ const ProfileConverter = {
       fullname: identity(user.fullname),
       username: identity(user.username),
       email: identity(user.email),
+      website: identity(user.website),
+      bio: identity(user.bio),
       following: identity(user.following),
       followers: identity(user.followers),
       createdAt: identity(user.createdAt),
@@ -81,6 +91,8 @@ const ProfileConverter = {
       fullname: data.fullname,
       username: data.username,
       email: data.email,
+      website: data.website,
+      bio: data.bio,
       following: data.following,
       followers: data.followers,
       createdAt: data.createdAt,
