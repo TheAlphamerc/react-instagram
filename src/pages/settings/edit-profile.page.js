@@ -28,8 +28,8 @@ function EditProfilePageComponent({ user }) {
       await ProfileService.updateProfile(
         user.userId,
         name,
-        website,
         bio,
+        website,
         avatar
       );
       setSuccess(true);

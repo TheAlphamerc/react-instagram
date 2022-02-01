@@ -12,7 +12,7 @@ import { useState } from "react";
 
 function Photos({ photos, user }) {
   return (
-    <div className="sm:border-t sm:mt-12  border-gray-300  pt-4">
+    <div className="sm:border-t sm:mt-8  border-gray-300  pt-4">
       <div className="grid grid-cols-3 gap-2 sm:gap-8 mt-4 mb-12">
         {!photos ? (
           <Skeleton height={100} width={100} count={3} />
@@ -49,10 +49,9 @@ function Photo({ post, user }) {
         />
       </div>
       <div
-        style={{ opacity: 0.4 }}
-        className="absolute hidden hover:block bg-black bottom-0 left-0  z-10 w-full justify-center space-x-6 items-center h-full bg-black-faded group-hover:flex"
+        className="transition ease-in delay-100 transition-colors duration-600 absolute hidden hover:block bg-black/50 bottom-0 left-0  z-10 w-full justify-center space-x-6 items-center h-full  group-hover:flex"
       >
-        <div className="flex items-center opacity-100">
+        <div className="flex items-center">
           <FontAwesomeIcon
             className={cx("cursor-pointer ", {
               "text-white": isLiked,

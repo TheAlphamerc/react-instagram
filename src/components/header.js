@@ -74,7 +74,7 @@ function Header({ user, createPostRef }) {
                       <UserAvatar
                         avatar={user.avatar}
                         fullname={user.fullname}
-                        className="w-12 h-12 ml-4"
+                        className="w-8 h-8 ml-4 text-sm"
                       />
                     </Link>
                   </div>

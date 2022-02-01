@@ -18,6 +18,7 @@ function ProfileComponent({ profile, loggedInUser }) {
     initialState
   );
   useEffect(() => {
+    document.title = "instagram - Profile";
     async function getProfile() {
       const postCollection = await FeedService.getUserPostsByUsername(
         profile.username
