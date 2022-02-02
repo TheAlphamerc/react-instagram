@@ -55,6 +55,7 @@ const PostConverter = {
       caption: identity(post.caption),
       attachments: identity(post.attachments),
       likes: identity(post.likes),
+      location: identity(post.location),
       comments: Array.isArray(post.comments)
         ? post.comments.map((com: any) => PostConverter.toFirestore(com))
         : [],

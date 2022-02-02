@@ -50,7 +50,7 @@ function HeaderComponent({ user, post }) {
   };
 
   return (
-    <div className="flex justify-between place-items-center border-b border-gray-300 h-4 px-2 py-6">
+    <div className="flex justify-between place-items-center border-b border-gray-300 h-4 py-8 px-6">
       <Link
         to={`/p/${post.createdBy.username}`}
         className="flex items-center space-x-2"
@@ -60,7 +60,10 @@ function HeaderComponent({ user, post }) {
           avatar={post.createdBy.avatar}
           fullname={post.createdBy.fullname}
         />
-        <p className="text-sm font-bold">{post.createdBy.username}</p>
+        <div>
+          <p className="text-sm font-bold">{post.createdBy.username}</p>
+          <p className="text-xs">{post.location}</p>
+        </div>
       </Link>
       <button
         className="p-2 hover:bg-gray-100 rounded-full w-10 h-10"

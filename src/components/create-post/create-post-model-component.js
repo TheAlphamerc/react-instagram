@@ -30,6 +30,7 @@ function CreatePostModelComponent({ user, active, setActive = (e) => {} }) {
             new PostModel({
               userId: "",
               caption: caption,
+              location: location,
               attachments: [attachmentUrl],
               likes: [],
               comments: [],
