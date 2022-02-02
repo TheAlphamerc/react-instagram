@@ -10,6 +10,7 @@ import cx from "classnames";
 import FeedService from "../../../services/feed";
 import CommentsComponent from "./comment/comments";
 import AddCommentComponent from "./add-comment/add-comment.js";
+import ExpandedText from "../../expended-text";
 
 function PostFooterComponent({ user, post }) {
   const [comments, setComments] = useState(post.comments);
@@ -33,15 +34,16 @@ function PostFooterComponent({ user, post }) {
     }
   };
   return (
-    <div className="border-t border-gray-200 p-2">
+    <div className="border-t border-gray-200 p-4">
       <PostActionComponent
         user={user}
         post={post}
         onAction={onAction}
         handleFocus={handleFocus}
       />
-      <span className="font-bold">{post.createdBy.fullname}</span>
-      <span className="px-2 font-normal">{post.caption}</span>
+      <span className="font-bold">{post.createdBy.fullname}&nbsp;</span>
+      <ExpandedText text={post.caption} />
+      <span className="px-2 font-normal"></span>
       <CommentsComponent allComments={comments} postedAt={post.createdAt} />
       <AddCommentComponent
         user={user}
