@@ -2,6 +2,9 @@
 
 Instagram clone built in [Reactjs](https://reactjs.org/) using Firebase Auth and Firestore db.
 
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FTheAlphamerc%2Freact-instagram&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)  [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/Thealphamerc/react-instagram) [![GitHub stars](https://img.shields.io/github/stars/Thealphamerc/react-instagram?style=social)](https://github.com/login?return_to=https://github.com/FTheAlphamerc/react-instagram) 
+![GitHub forks](https://img.shields.io/github/forks/TheAlphamerc/react-instagram?style=social)
+
 ## Live Demo
 https://react-instagram-9284e.web.app
 
