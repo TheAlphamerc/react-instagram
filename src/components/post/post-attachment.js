@@ -1,10 +1,15 @@
 import PropTypes from "prop-types";
-function PostAttachmentComponent({ attachments }) {
+function PostAttachmentComponent({ attachments, setActive = e=>{} }) {
   if (!attachments) return null;
   return (
-    <div className="flex place-content-center items-center w-full bg-gray-200">
+    <div
+      onClick={() => {
+        setActive(true);
+      }}
+      className="flex place-content-center items-center w-full bg-gray-200"
+    >
       {attachments.map((attachment, index) => {
-        return <img className=" h-fit" key={index} src={attachment} alt="" />;
+        return <img className=" h-fit" style={{maxHeight:'640px'}} key={index} src={attachment} alt="" />;
       })}
     </div>
   );

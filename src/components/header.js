@@ -8,7 +8,7 @@ import {
 import { getAuth, signOut } from "firebase/auth";
 
 import CreatePostModelComponent from "../components/create-post/create-post-model-component";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { UserAvatar } from ".";
@@ -38,23 +38,23 @@ function Header({ user, createPostRef }) {
             </Link>
           </div>
           {/* Home | Logout | User */}
-          <div className="text-gray-700 text-center flex items-center align-items">
+          <div className="text-gray-700 text-center flex items-center space-x-6 align-items">
             {!isLogout ? (
               <>
                 <Link
                   to={ROUTES.DASHBOARD}
-                  className="w-9 mr-6 text-black-500 cursor-pointer"
+                  className="text-black-500 cursor-pointer"
                 >
-                  <FontAwesomeIcon className="" icon={faHome} />
+                  <FontAwesomeIcon size="lg" className="" icon={faHome} />
                 </Link>
                 <div
                   ref={createPostRef}
-                  className="flex items-center justify-center border-2 border-black rounded h-6 w-6 cursor-pointer mr-4 select-none"
+                  className="flex items-center justify-center border-2 border-black rounded-lg h-6 w-6 cursor-pointer select-none"
                   onClick={() => {
                     setCreatePostModel(true);
                   }}
                 >
-                  <FontAwesomeIcon icon={faPlus} />
+                  <FontAwesomeIcon size="sm" icon={faPlus} />
                 </div>
                 <button
                   type="button"
@@ -66,7 +66,7 @@ function Header({ user, createPostRef }) {
                     }
                   }}
                 >
-                  <FontAwesomeIcon className="" icon={faSignOutAlt} />
+                  <FontAwesomeIcon size="lg" className="" icon={faSignOutAlt} />
                 </button>
                 {!user.fullname ? null : (
                   <div className="flex items-center cursor-pointer">
@@ -74,7 +74,7 @@ function Header({ user, createPostRef }) {
                       <UserAvatar
                         avatar={user.avatar}
                         fullname={user.fullname}
-                        className="w-8 h-8 ml-4 text-sm"
+                        className="w-8 h-8 text-sm"
                       />
                     </Link>
                   </div>
