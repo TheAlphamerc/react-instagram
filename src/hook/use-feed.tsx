@@ -3,6 +3,7 @@ import { SessionContext } from "../context/session";
 import { PostModel } from "../models/post";
 import FeedService from "../services/feed";
 import UsePost from "./use-post";
+import useScroll from "./use-scroll";
 
 function UserFeeds(): {
   feed: PostModel[] | undefined;
@@ -17,6 +18,8 @@ function UserFeeds(): {
   const pageLimit = 10;
 
   const user = useContext<any>(SessionContext);
+
+  useScroll(hasMoreData, loadMore, isLoading, setLoadMore);
 
   /// Fetch feeds
   useEffect(() => {
@@ -75,8 +78,8 @@ function UserFeeds(): {
           }
           if (change.type === "modified") {
             if (isExist) {
-              let index = list?.findIndex(p => p.id == change.doc.id);
-              if(index != undefined){
+              let index = list?.findIndex((p) => p.id == change.doc.id);
+              if (index != undefined) {
                 list[index] = change.doc.data();
                 setFeeds(list);
                 console.log("Post Modified: ", change.doc.data());
@@ -94,28 +97,6 @@ function UserFeeds(): {
       });
     }
   }, [querySnapshot]);
-
-  /// Trigger  load more effect
-  useEffect(() => {
-    // create callback
-    const callBack = () => {
-      if (
-        window.innerHeight + window.scrollY + 100 >=
-        document.body.offsetHeight
-      ) {
-        // Fetch more post feed when user scrolls to bottom
-        setLoadMore(true);
-      }
-    };
-
-    if (!loadMore) {
-      console.log("bottom reached");
-      window.addEventListener("scroll", callBack);
-    }
-    return () => {
-      window.removeEventListener("scroll", callBack);
-    };
-  }, [user]);
 
   return { feed, isLoading: isLoading };
 }

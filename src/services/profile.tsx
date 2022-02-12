@@ -9,6 +9,8 @@ import {
   query,
   doc,
   where,
+  orderBy,
+  startAfter,
 } from "firebase/firestore";
 
 import { Profile, ProfileConverter } from "../models/index";
@@ -51,14 +53,22 @@ class ProfileService {
   /**
    * Get suggested users list
    * @param {string} userId
+   * @param {string} after
+   * @param {number} limit
    * @returns
    */
-  static async getSuggestedProfiles(userId: string): Promise<Profile[]> {
+  static async getSuggestedProfiles(
+    userId: string,
+    after: String,
+    postLimit: number
+  ): Promise<Profile[]> {
     try {
       const querySnapshot = query(
         collection(db, "users").withConverter(ProfileConverter),
         where("userId", "!=", userId),
-        limit(10)
+        orderBy("userId", "asc"),
+        startAfter(after),
+        limit(postLimit)
       );
       const docs = await getDocs(querySnapshot);
       const list = docs.docs.map((doc) => doc.data());

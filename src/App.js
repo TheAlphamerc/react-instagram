@@ -11,6 +11,8 @@ import {
   EditProfile,
   getLoggedInRoute,
   getProtectedRoute,
+  Explore,
+  People,
 } from "./helper/routes.helper";
 
 import Loader from "./components/loader";
@@ -45,6 +47,12 @@ function App({ user }) {
             element={getProtectedRoute(user, <AccountSettings />)}
           >
             <Route path={ROUTES.PROFILE_EDIT_ROUTE} element={<EditProfile />} />
+          </Route>
+          <Route
+            path={ROUTES.EXPLORE_ROUTE}
+            element={getProtectedRoute(user, <Explore />)}
+          >
+            <Route path={ROUTES.PEOPLE_ROUTE} element={<People />} />
           </Route>
 
           <Route path={ROUTES.NO_PAGE_FOUND_ROUTE} element={<NoPageFound />} />
