@@ -11,28 +11,13 @@ import FeedService from "../../../services/feed";
 import AddCommentComponent from "./add-comment/add-comment.js";
 import CommentsComponent from "./comment/comments";
 import ExpandedText from "../../expended-text";
+import { PostAction } from "..";
 
-function PostFooterComponent({ user, post }) {
+function PostFooterComponent({ user, post, onAction = (actionType) => {} }) {
   const [comments, setComments] = useState(post.comments);
   const commentInput = useRef(null);
   const handleFocus = () => commentInput.current.focus();
-  const onAction = async (actionType, data) => {
-    try {
-      switch (actionType) {
-        case "like":
-          await FeedService.togglePostLike(post, user.userId);
-          break;
-        case "newComment":
-          FeedService.addComment(data, post.id);
-          setComments([data, ...comments]);
-          break;
-        default:
-          break;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   return (
     <div className="">
       <PostActionComponent
@@ -45,8 +30,9 @@ function PostFooterComponent({ user, post }) {
 
       <AddCommentComponent
         user={user}
-        comments={[]}
-        onNewCommentAdd={(newComment) => onAction("newComment", newComment)}
+        onNewCommentAdd={(newComment) =>
+          onAction(PostAction.addComment, newComment)
+        }
         commentInput={commentInput}
       />
     </div>

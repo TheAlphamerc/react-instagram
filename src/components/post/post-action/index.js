@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import cx from "classnames";
+import { PostAction } from "..";
 
 function PostActionComponent({
   user,
@@ -21,7 +22,7 @@ function PostActionComponent({
       <div className="flex items-center mb-1">
         <button
           onClick={() => {
-            onAction("like");
+            onAction(PostAction.like);
             setIsLiked(!isLiked);
             setLike(isLiked ? likes - 1 : likes + 1);
           }}

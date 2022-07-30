@@ -10,44 +10,15 @@ import PostMenuComponent, {
 } from "../model/menu-action.component";
 import FeedService from "../../services/feed";
 import ProfileService from "../../services/profile";
+import { PostAction } from ".";
 
-function HeaderComponent({ user, post }) {
+export default function HeaderComponent({
+  user,
+  post,
+  onAction = (actionType) => {},
+}) {
   const [active, setActive] = useState(false);
   const isMyPost = post.createdBy.userId === user.userId ?? false;
-
-  const onAction = async (actionType) => {
-    try {
-      switch (actionType) {
-        case "delete":
-          await FeedService.deletePost(post, user.userId);
-          break;
-        case "report":
-          await FeedService.reportPost(post, user);
-          console.log("Reported");
-          break;
-        case "Unfollow":
-          await ProfileService.updateMyFollowingUser(
-            user.userId,
-            post.createdBy.userId,
-            true
-          );
-          console.log("user unfollowed");
-          break;
-        case "follow":
-          await ProfileService.updateMyFollowingUser(
-            user.userId,
-            post.createdBy.userId,
-            false
-          );
-          console.log("user followed");
-          break;
-        default:
-          break;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className="flex justify-between place-items-center border-b border-gray-300 h-4 py-8 px-6">
@@ -79,25 +50,25 @@ function HeaderComponent({ user, post }) {
             isMyPost
               ? new Action(
                   "Delete",
-                  () => onAction("delete"),
+                  () => onAction(PostAction.delete),
                   ActionLevel.alert
                 )
               : new Action(
                   "Report",
-                  () => onAction("report"),
+                  () => onAction(PostAction.report),
                   ActionLevel.alert
                 ),
             user.following.includes(post.createdBy.userId)
               ? new Action(
                   "Unfollow",
-                  () => onAction("Unfollow"),
+                  () => onAction(PostAction.unfollow),
                   ActionLevel.alert
                 )
               : isMyPost
               ? null
               : new Action(
                   "Follow",
-                  () => onAction("follow"),
+                  () => onAction(PostAction.follow),
                   ActionLevel.primary
                 ),
             new Action("Cancel", () => {}),
@@ -107,5 +78,3 @@ function HeaderComponent({ user, post }) {
     </div>
   );
 }
-
-export default HeaderComponent;

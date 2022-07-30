@@ -1,7 +1,8 @@
 {
     "plugins": [
       // ...
-      "react-hooks"
+      "react-hooks",
+      "import"
     ],
     "rules": {
       // ...
@@ -17,5 +18,13 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
-    ]
+    ],
+    "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    }
 }
