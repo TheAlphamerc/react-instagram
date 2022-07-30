@@ -15,6 +15,31 @@ https://react-instagram-9284e.web.app
 `npm run start`
 
 
+## Web screnshots
+|   |  |
+| ------------- |:-------------:|
+| <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/web-1.png"/>     | <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/web-2.png"/>    |
+| <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/web-3.png"/>     | <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/web-4.png"/>    |
+| <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/web-5.png"/>     | <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/web-6.png"/>    |
+
+
+
+## Tablet Screenshot
+|  |  |
+| ------------- |:-------------:|
+| <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/tab-1.png"/>     | <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/tab-2.png"/>    |
+| <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/tab-3.png"/>     | <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/tab-4.png"/>    |
+
+
+
+## Mobile Screenshot
+|  |  |  |  |
+| ------------- |:-------------|:------------- |:-------------|
+| <img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/mob-1.png"/>  |<img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/mob-2.png"/> |<img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/mob-3.png"/> |<img src="https://raw.githubusercontent.com/TheAlphamerc/react-instagram/screenshots/mob-4.png"/>|
+
+
+
+
 
 ## Created & Maintained By
 
