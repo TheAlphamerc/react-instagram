@@ -6,7 +6,7 @@ import UserFeeds from "../../hook/use-feed";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { withFeed, withFeedProvider } from "../../context/feed";
 
-function Timeline({createPostRef, feed, isLoading }) {
+function Timeline({ createPostRef, feed, isLoading }) {
   return (
     <div className="col-span-2 overflow-y-scroll">
       {isLoading ? (
