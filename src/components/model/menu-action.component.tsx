@@ -55,7 +55,7 @@ function ActionButton({
     return null;
   }
   return (
-    <button
+    <div
       onClick={() => {
         action.action();
         setActive(false);
@@ -67,7 +67,7 @@ function ActionButton({
       })}
     >
       {action.label}
-    </button>
+    </div>
   );
 }
 

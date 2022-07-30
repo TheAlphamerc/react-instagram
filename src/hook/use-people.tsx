@@ -38,6 +38,7 @@ function usePeople(userId: string, pageLimit: number, maxLimit: number) {
       );
       if (list && list.length > 0) {
         setLastId(list.reverse()[0].userId);
+        list.sort((a, b) => b.createdAt - a.createdAt);
 
         /// Check and set if all data is loaded
         setHasMoreData(list.length == pageLimit);

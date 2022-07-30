@@ -1,4 +1,5 @@
 body {
+  
   .Modal {
     display: none;
     &.active {
@@ -19,4 +20,7 @@ body {
   .spinner {
     animation: spinner 0.75s ease-in-out infinite;
   }
+}
+Html{
+  background-color: #f3f4f6
 }

@@ -60,15 +60,16 @@ class ProfileService {
   static async getSuggestedProfiles(
     userId: string,
     after: String,
-    postLimit: number
+    pageLimit: number
   ): Promise<Profile[]> {
     try {
       const querySnapshot = query(
         collection(db, "users").withConverter(ProfileConverter),
         where("userId", "!=", userId),
-        orderBy("userId", "asc"),
+        orderBy("userId"),
+        // orderBy("createdAt"),
         startAfter(after),
-        limit(postLimit)
+        limit(pageLimit)
       );
       const docs = await getDocs(querySnapshot);
       const list = docs.docs.map((doc) => doc.data());
